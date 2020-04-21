@@ -8,5 +8,10 @@ namespace Auth.Application.Roles.Commands.Create
         public string Name { get; set; }
         public string Description { get; set; }
         public Dictionary<string, IEnumerable<string>> Permisions { get; set; }
+
+        public CreateRoleCommand()
+        {
+            Permisions = new Dictionary<string, IEnumerable<string>>();
+        }
     }
 }

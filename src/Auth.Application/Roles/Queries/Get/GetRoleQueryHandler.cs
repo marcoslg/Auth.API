@@ -19,7 +19,8 @@ namespace Auth.Application.Roles.Queries.Get
         public async Task<RoleVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name.ToLowerInvariant();
-            var role = await _roleContext.Roles
+
+            var role = await _roleContext.Roles.AsNoTracking()
                 .FirstOrDefaultAsync(r => r.Name == request.Name, cancellationToken);
             if (role == null)
             {

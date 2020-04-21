@@ -19,13 +19,17 @@ namespace Auth.Domain.Roles
 
         }
 
-        public Role(string roleName, string description, IEnumerable<ApplicationRole> applications = null) : base(roleName)
+        public Role(string roleName, string description) : base(roleName)
         {
             Description = description;
-            Applications = applications ?? new List<ApplicationRole>();
+            this.NormalizedName = roleName.ToLowerInvariant();
         }
 
         public string Description { get; set; }
-        public IEnumerable<ApplicationRole> Applications { get; set; }
+       
+    }
+    public class RoleClaim : IdentityRoleClaim<string>
+    {
+        
     }
 }

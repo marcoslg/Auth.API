@@ -12,6 +12,7 @@ namespace Auth.Application
         => services
             .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
             .AddMediatR(Assembly.GetExecutingAssembly())
-            .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));
     }
 }

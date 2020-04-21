@@ -20,12 +20,18 @@ namespace Auth.Application.Roles.Commands.Create
             var entity = await _roleContext
                 .Roles
                 .SingleOrDefaultAsync(r => r.Id == command.Name, cancellationToken);
+
             if (entity == null)
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }
-            var role = command.ToMap();
+            var role = command.ToMapRole();
+            var roleClaims = command.ToMapRoleClaim();            
             await _roleContext.AddAsync(role, cancellationToken);
+
+            await _roleContext.AddAsync(roleClaims, cancellationToken);
+            await _roleContext.SaveChangesAsync(cancellationToken);
+
             return role.Name;
         }
     }
