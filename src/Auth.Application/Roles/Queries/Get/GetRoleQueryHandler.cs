@@ -1,9 +1,8 @@
-﻿using Auth.Application.Contracts;
-using Auth.Application.Exceptions;
-using Auth.Application.Roles.Queries.Get;
+﻿using Auth.Application.Exceptions;
+using Auth.Application.Roles.Queries.Get.Models;
 using Auth.Domain.Roles;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,22 +10,25 @@ namespace Auth.Application.Roles.Queries.Get
 {
     public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, RoleVM>
     {
-        private readonly IRoleDbContext _roleContext;
-        public GetRoleQueryHandler(IRoleDbContext roleContext)
+        
+        private readonly RoleManager<Domain.Roles.Role> _roleManager;
+        public GetRoleQueryHandler(RoleManager<Domain.Roles.Role> roleManager)
         {
-            _roleContext = roleContext;
+            _roleManager = roleManager;
         }
         public async Task<RoleVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name.ToLowerInvariant();
-
-            var role = await _roleContext.Roles.AsNoTracking()
-                .FirstOrDefaultAsync(r => r.Name == request.Name, cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            var role = await _roleManager.FindByNameAsync(request.Name);
+            cancellationToken.ThrowIfCancellationRequested();
             if (role == null)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 throw new NotFoundException(nameof(Role), request.Name);
             }
             var result = role.ToMap();
+            cancellationToken.ThrowIfCancellationRequested();
             return result;
         }
     }

@@ -7,6 +7,7 @@ namespace Auth.Domain.Applications
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public bool IsEnabled { get; set; }
 
         public Version Version { get; set; }
         public IEnumerable<Permision> Permisions { get; set; }

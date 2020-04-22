@@ -1,4 +1,4 @@
-﻿namespace Auth.Application.Roles.Queries.SearchRole
+﻿namespace Auth.Application.Roles.Queries.Get.Models
 {
     public class RoleVM
     {

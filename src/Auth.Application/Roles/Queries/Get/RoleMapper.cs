@@ -1,4 +1,5 @@
-﻿using Auth.Domain.Roles;
+﻿using Auth.Application.Roles.Queries.Get.Models;
+using Auth.Domain.Roles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

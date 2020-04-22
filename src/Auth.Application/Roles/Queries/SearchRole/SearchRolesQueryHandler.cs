@@ -1,5 +1,6 @@
-﻿using Auth.Application.Contracts;
+﻿using Auth.Application.Roles.Queries.SearchRole.Models;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,17 @@ using System.Threading.Tasks;
 namespace Auth.Application.Roles.Queries.SearchRole
 {
     public class SearchRolesQueryHandler : IRequestHandler<SearchRolesQuery, IEnumerable<RoleVM>>
-    {
-        private IRoleDbContext _roleContext;
-        public SearchRolesQueryHandler(IRoleDbContext roleContext)
+    {        
+        private readonly RoleManager<Domain.Roles.Role> _roleManager;
+        public SearchRolesQueryHandler(RoleManager<Domain.Roles.Role> roleManager)
         {
-            _roleContext = roleContext;
+            _roleManager = roleManager;
         }
         public async Task<IEnumerable<RoleVM>> Handle(SearchRolesQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name.ToLowerInvariant();
-            var result = await _roleContext.Roles.AsNoTracking()
+            
+            var result = await _roleManager.Roles.AsNoTracking()
                 .Where(r => r.NormalizedName.Contains(normalizedName))
                 .OrderBy(r => r.Name)
                 .ToMap()

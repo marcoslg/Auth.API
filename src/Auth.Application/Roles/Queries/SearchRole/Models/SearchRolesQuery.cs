@@ -1,9 +1,7 @@
 ﻿using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Auth.Application.Roles.Queries.SearchRole
+namespace Auth.Application.Roles.Queries.SearchRole.Models
 {
     public class SearchRolesQuery : IRequest<IEnumerable<RoleVM>>
     {
