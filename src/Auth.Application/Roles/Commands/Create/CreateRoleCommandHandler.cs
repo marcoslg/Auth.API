@@ -23,7 +23,7 @@ namespace Auth.Application.Roles.Commands.Create
         public async Task<string> Handle(CreateRoleCommand command, CancellationToken cancellationToken)
         {
             var entity = await _roleManager.FindByNameAsync(command.Name);            
-            if (entity == null)
+            if (entity != null)
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }

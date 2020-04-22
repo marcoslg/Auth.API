@@ -9,6 +9,7 @@ namespace Auth.Application.Roles.Queries.Get
         {
             RuleFor(r => r.Name)
                 .MaximumLength(200)
+                .NotNull()
                 .NotEmpty();
         }
     }

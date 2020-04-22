@@ -18,10 +18,10 @@ namespace Auth.Application.Roles.Queries.SearchRole
         }
         public async Task<IEnumerable<RoleVM>> Handle(SearchRolesQuery request, CancellationToken cancellationToken)
         {
-            var normalizedName = request.Name.ToLowerInvariant();
+            var normalizedName = request.Name;
             
             var result = await _roleManager.Roles.AsNoTracking()
-                .Where(r => r.NormalizedName.Contains(normalizedName))
+                .Where(r => r.Name.Contains(normalizedName))
                 .OrderBy(r => r.Name)
                 .ToMap()
                 .ToListAsync(cancellationToken);

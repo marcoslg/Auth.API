@@ -8,6 +8,7 @@ namespace Auth.Application.Roles.Commands.Create
         {
             RuleFor(v => v.Name)
                 .MaximumLength(200)
+                .NotNull()
                 .NotEmpty();
         }
     }

@@ -8,6 +8,7 @@ namespace Auth.Application.Roles.Commands.Delete
         {
             RuleFor(v => v.Name)
                 .MaximumLength(200)
+                .NotNull()
                 .NotEmpty();
         }
     }
