@@ -6,15 +6,11 @@ namespace Auth.Application.Roles.Commands.Create
 {
     internal static class CreateRoleCommandMapper
     {
-        public static Role ToMapRole(this CreateRoleCommand command)
-            => new Role(command.Name, command.Description);
-
-        public static IEnumerable<RoleClaim> ToMapRoleClaim(this CreateRoleCommand command)
-            => command.Permisions.SelectMany(k => k.Value.Select(v=> new RoleClaim()
+        public static Role ToMap(this CreateRoleCommand command)
+            => new Role(command.Name, command.Description, command.Permisions.Select(x => new ApplicationRole()
             {
-                ClaimType ="permission",
-                RoleId = command.Name,
-                ClaimValue = $"{k.Key}:{k.Value}"
+                Application = new Domain.Applications.Application() { Name = x.Key },
+                Permisions = x.Value.Select(p => new Domain.Applications.Permision() { Name = p })
             }));
     }
 }

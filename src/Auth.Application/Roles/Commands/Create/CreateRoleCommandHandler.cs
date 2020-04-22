@@ -25,11 +25,8 @@ namespace Auth.Application.Roles.Commands.Create
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }
-            var role = command.ToMapRole();
-            var roleClaims = command.ToMapRoleClaim();            
+            var role = command.ToMap();            
             await _roleContext.AddAsync(role, cancellationToken);
-
-            await _roleContext.AddAsync(roleClaims, cancellationToken);
             await _roleContext.SaveChangesAsync(cancellationToken);
 
             return role.Name;

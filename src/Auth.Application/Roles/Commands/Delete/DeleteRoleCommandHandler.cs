@@ -24,8 +24,7 @@ namespace Auth.Application.Roles.Commands.Delete
             {
                 throw new NotFoundException(nameof(Role), command.Name);
             }
-            await _roleContext.RemoveAsync(entity, cancellationToken);
-            await _roleContext.RemoveAsync(new RoleClaim { RoleId = entity.Name}, cancellationToken);
+            await _roleContext.RemoveAsync(entity, cancellationToken);            
             await _roleContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

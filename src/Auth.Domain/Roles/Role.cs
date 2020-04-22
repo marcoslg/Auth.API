@@ -10,6 +10,8 @@ namespace Auth.Domain.Roles
             get => Name;
             set => Name = value;
         }
+        public string Description { get; set; }
+        public IEnumerable<ApplicationRole> Applications { get; set; }
         public Role()
         {
         }
@@ -19,14 +21,15 @@ namespace Auth.Domain.Roles
 
         }
 
-        public Role(string roleName, string description) : base(roleName)
+        public Role(string roleName, string description, IEnumerable<ApplicationRole> applications = null) : base(roleName)
         {
             Description = description;
             this.NormalizedName = roleName.ToLowerInvariant();
+            Applications = applications ?? new List<ApplicationRole>();
         }
 
-        public string Description { get; set; }
-       
+        
+
     }
     public class RoleClaim : IdentityRoleClaim<string>
     {
