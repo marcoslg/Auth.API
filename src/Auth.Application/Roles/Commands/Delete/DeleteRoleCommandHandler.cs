@@ -19,11 +19,13 @@ namespace Auth.Application.Roles.Commands.Delete
         public async Task<Unit> Handle(DeleteRoleCommand command, CancellationToken cancellationToken)
         {
             var entity = await _context.Roles
+                  .Include(r => r.Users)
                  .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Role), command.Name);
-            }
+            }            
+
             cancellationToken.ThrowIfCancellationRequested();
             _context.Roles.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);

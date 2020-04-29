@@ -1,31 +1,29 @@
-﻿using Auth.Domain.Users;
-using Microsoft.AspNetCore.Identity;
+﻿using Auth.Domain.Common;
+using Auth.Domain.Users;
 using System.Collections.Generic;
 
 namespace Auth.Domain.Roles
 {
-    public class Role : IdentityRole<string>
+    public class Role : AuditableEntity
     {
-        public override string Id
+        private string _name;
+        public string Name
         {
-            get => Name;
-            set => Name = value;
+            get => _name;
+            private set => _name = value?.ToLowerInvariant();
         }
         public string Description { get; set; }
-        public IEnumerable<ApplicationRole> Applications { get; set; }
-        public Role()
+        public IEnumerable<ApplicationRole> Applications { get; set; }        
+
+        public Role(string roleName)
+            : this(roleName, string.Empty)
         {
         }
 
-        public Role(string roleName) : base(roleName)
+        public Role(string roleName, string description, IEnumerable<ApplicationRole> applications = null)
         {
-
-        }
-
-        public Role(string roleName, string description, IEnumerable<ApplicationRole> applications = null) : base(roleName)
-        {
+            Name = roleName;
             Description = description;
-            this.NormalizedName = roleName.ToLowerInvariant();
             Applications = applications ?? new List<ApplicationRole>();
         }
 
