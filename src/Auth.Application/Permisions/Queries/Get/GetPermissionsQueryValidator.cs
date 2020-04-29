@@ -7,8 +7,11 @@ namespace Auth.Application.Permisions.Queries.Get
         public GetPermissionsQueryValidator()
         {
             RuleFor(r => r.Username)
+                .Transform( u=> u.ToLowerInvariant())
                 .NotEmpty();
+
             RuleFor(r => r.ApplicationName)
+                .Transform(u => u.ToLowerInvariant())
                 .NotEmpty();
         }
     }

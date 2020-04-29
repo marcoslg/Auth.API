@@ -8,6 +8,7 @@ namespace Auth.Application.Roles.Queries.Get
         public GetRoleQueryValidator()
         {
             RuleFor(r => r.Name)
+                .Transform(u => u.ToLowerInvariant())
                 .MaximumLength(200)
                 .NotNull()
                 .NotEmpty();

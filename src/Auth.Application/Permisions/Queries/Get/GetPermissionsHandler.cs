@@ -1,6 +1,6 @@
-﻿using Auth.Application.Exceptions;
+﻿using Auth.Application.Contracts;
+using Auth.Application.Exceptions;
 using Auth.Domain.Applications;
-using Auth.Domain.Roles;
 using Auth.Domain.Users;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -14,34 +14,33 @@ namespace Auth.Application.Permisions.Queries.Get
 {
     public class GetPermissionsHandler : IRequestHandler<GetPermissionsQuery, IEnumerable<PermissionDto>>
     {        
-        private readonly RoleManager<Role> _roleManager;
-        private readonly UserManager<User> _userManager;
-        public GetPermissionsHandler(RoleManager<Role> roleManager, UserManager<User> userManager)
+        private readonly IAppDbContext _context;
+        
+        public GetPermissionsHandler(IAppDbContext context)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
+            _context = context;
         }
         public async Task<IEnumerable<PermissionDto>> Handle(GetPermissionsQuery request, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var user = await _userManager.FindByNameAsync(request.Username);
+            var username = request.Username.ToLowerInvariant();
+            var user = await _context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync( u=> u.UserName == username, cancellationToken);
             if (user == null)
             {
-                throw new NotFoundException(nameof(user), request.Username);
+                throw new NotFoundException(nameof(user), username);
             }
             if (user.LockoutEnabled)
             {
-                throw new LockedException(nameof(user), request.Username);                
+                throw new LockedException(nameof(user), username);                
             }
-            cancellationToken.ThrowIfCancellationRequested();
-            var userRoles = await _userManager.GetRolesAsync(user);
-            cancellationToken.ThrowIfCancellationRequested();
-            var roles = await _roleManager.Roles
-                .AsNoTracking()
-                .Where(r => userRoles.Contains(r.Name) && r.Applications.Any(a => a.Application.Name == request.ApplicationName && a.Application.IsEnabled))
+            
+            var roles = await _context.Roles.AsNoTracking()
+                .Where (r => r.Users.Any(u => u.UserName == user.UserName) 
+                    && r.Applications.Any(a => a.Application.Name == request.ApplicationName && a.Application.IsEnabled))
                 .Include(r => r.Applications)
                     .ThenInclude(a => a.Permisions)
-                    .ToListAsync(cancellationToken);
+                    .ToListAsync(cancellationToken);        
 
             var permisions = new HashSet<Permision>(
                 roles

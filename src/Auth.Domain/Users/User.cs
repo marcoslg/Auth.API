@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Auth.Domain.Roles;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace Auth.Domain.Users
 {
@@ -10,5 +12,7 @@ namespace Auth.Domain.Users
             get => UserName;
             set => UserName = value;
         }
+
+        public IEnumerable<Role> Roles { get; set; }
     }
 }

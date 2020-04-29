@@ -1,9 +1,16 @@
 ﻿using Auth.Domain.Roles;
 using Auth.Domain.Users;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Auth.Application.Contracts
 {
-    public interface IAppDbContext : IDbContext<Role>, IDbContext<User>
+    public interface IAppDbContext 
     {
+        DbSet<User> Users { get; }
+        DbSet<Role> Roles { get; }
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

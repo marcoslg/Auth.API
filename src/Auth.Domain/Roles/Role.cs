@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Auth.Domain.Users;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace Auth.Domain.Roles
@@ -28,11 +29,8 @@ namespace Auth.Domain.Roles
             Applications = applications ?? new List<ApplicationRole>();
         }
 
-        
+        public IEnumerable<User> Users { get; set; }
 
-    }
-    public class RoleClaim : IdentityRoleClaim<string>
-    {
-        
-    }
+
+    }  
 }

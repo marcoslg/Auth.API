@@ -14,23 +14,23 @@ namespace Auth.Application.Roles.Commands.Create
 {
     public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, string>
     {
-        
-        private readonly RoleManager<Domain.Roles.Role> _roleManager;
-        public CreateRoleCommandHandler(RoleManager<Domain.Roles.Role> roleManager)
+        private readonly IAppDbContext _context;
+        public CreateRoleCommandHandler(IAppDbContext context)
         {
-            _roleManager = roleManager;
+            _context = context;
         }
         public async Task<string> Handle(CreateRoleCommand command, CancellationToken cancellationToken)
         {
-            var entity = await _roleManager.FindByNameAsync(command.Name);            
+            var entity = await _context.Roles.AsNoTracking()
+                .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);            
             if (entity != null)
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }
-            var role = command.ToMap();
+            var role = command.ToMap();            
+            _context.Roles.Add(role);
             cancellationToken.ThrowIfCancellationRequested();
-            var result = await _roleManager.CreateAsync(role);
-            result.ThrowIfError();
+            await _context.SaveChangesAsync(cancellationToken);
             return role.Name;
         }
     }
