@@ -12,7 +12,15 @@ namespace Auth.Application.Roles.Queries.SearchRole
         public static RoleVM ToMap(this Role role)
         => new RoleVM(role.Name, role.Description);
 
-        public static IQueryable<RoleVM> ToMap(this IQueryable<Role> roleQuery)
-       => roleQuery.Select(x => x.ToMap());
+        public static IQueryable<RoleVM> ToMap(this IQueryable<Role> roleQuery, int? pageSize, int? page)
+        {
+            if (pageSize.HasValue && page.HasValue)
+            {
+                var pageNotNull = page.Value;
+                var pageSizeNotNull = pageSize.Value;
+                roleQuery = roleQuery.Skip(pageNotNull * pageSizeNotNull).Take(pageSizeNotNull);
+            }
+            return roleQuery.OrderBy(r => r.Name).Select(x => x.ToMap());
+        }
     }
 }

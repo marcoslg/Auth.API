@@ -5,7 +5,6 @@ using Auth.Domain.Roles;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System;

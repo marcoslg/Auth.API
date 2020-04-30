@@ -7,6 +7,7 @@ namespace Auth.Application.Roles.Commands.Create
         public CreateRoleCommandValidator()
         {
             RuleFor(v => v.Name)
+                .Transform(n=> n.ToLowerInvariant())
                 .MaximumLength(200)
                 .NotNull()
                 .NotEmpty();

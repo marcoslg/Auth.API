@@ -15,7 +15,6 @@ namespace Auth.Application.Roles.Commands.Create
         public CreateRoleCommandHandler(IAppDbContext context, ICurrentUserService cuserService)
         {
             _context = context;
-            _cuserService = cuserService;
         }
         public async Task<string> Handle(CreateRoleCommand command, CancellationToken cancellationToken)
         {

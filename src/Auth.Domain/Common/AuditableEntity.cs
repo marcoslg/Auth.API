@@ -12,5 +12,10 @@ namespace Auth.Domain.Common
 
         public DateTime? LastModified { get; set; }
         public bool IsEnabled { get; set; }
+
+        protected AuditableEntity()
+        {
+            IsEnabled = true;
+        }
     }
 }

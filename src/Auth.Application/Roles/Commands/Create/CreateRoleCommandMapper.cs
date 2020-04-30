@@ -10,8 +10,8 @@ namespace Auth.Application.Roles.Commands.Create
         public static Role ToMap(this CreateRoleCommand command)
             => new Role(command.Name, command.Description, command.Permisions.Select(x => new ApplicationRole()
             {
-                Application = new Domain.Applications.Application() { Name = x.Key },
-                Permisions = x.Value.Select(p => new Domain.Applications.Permision() { Name = p })
+                Application = new Domain.Applications.Application(x.Key),
+                Permisions = x.Value.Select(p => Domain.Applications.Permision.For(p))
             }));
     }
 }

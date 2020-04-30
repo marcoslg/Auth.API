@@ -13,13 +13,18 @@ namespace Auth.Domain.Applications
         }
         public string Description { get; private set; }
 
-        private Permision() { }
+        private Permision(string name) {
+            Name = name;
+        }
         private Permision(string name, string description) 
         {
             Name = name;
             Description = description;
         }
-
+        public static Permision For(string name)
+        => new Permision(name);
+        public static Permision For(string name, string description)
+        => new Permision(name, description);
 
         public override int GetHashCode()
         {

@@ -1,7 +1,5 @@
 ﻿using Auth.Application.Roles.Queries.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Auth.Application.Roles.Queries.Get.Models
 {
