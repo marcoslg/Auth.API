@@ -11,6 +11,6 @@ namespace Auth.Domain.Common
         public string LastModifiedBy { get; set; }
 
         public DateTime? LastModified { get; set; }
-        public bool IsDisabled { get; set; }
+        public bool IsEnabled { get; set; }
     }
 }

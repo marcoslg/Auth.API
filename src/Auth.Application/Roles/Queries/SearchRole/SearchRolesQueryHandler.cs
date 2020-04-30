@@ -1,4 +1,5 @@
 ﻿using Auth.Application.Contracts;
+using Auth.Application.Roles.Queries.Models;
 using Auth.Application.Roles.Queries.SearchRole.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace Auth.Application.Roles.Queries.SearchRole
             var normalizedName = request.Name.ToLowerInvariant();
             
             var result = await _context.Roles.AsNoTracking()
-                .Where(r => r.Name.Contains(normalizedName))
+                .Where(r => r.IsEnabled && r.Name.Contains(normalizedName))
                 .OrderBy(r => r.Name)
                 .ToMap()
                 .ToListAsync(cancellationToken);

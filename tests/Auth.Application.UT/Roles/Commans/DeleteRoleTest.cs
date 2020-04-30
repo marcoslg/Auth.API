@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Exceptions;
 using Auth.Application.Roles.Commands.Delete;
+using Auth.Application.Roles.Commands.Enabled;
 using Auth.Application.UT.Common;
 using Auth.Domain.Roles;
 using FluentAssertions;
@@ -24,7 +25,7 @@ namespace Auth.Application.UT.Roles.Commans
             var mediator = ServiceProvider.GetService<IMediator>();
             Func<Task<Unit>> act = async () =>
             {                
-                var response = await mediator.Send(new DeleteRoleCommand()
+                var response = await mediator.Send(new DisabledRoleCommand()
                 {
                     Name = roleName
                 });
@@ -48,7 +49,7 @@ namespace Auth.Application.UT.Roles.Commans
             rolemanager.FindByNameAsync("").ReturnsForAnyArgs(new Role(roleName));
             rolemanager.DeleteAsync(null).ReturnsForAnyArgs(new TestIdentityResult(true));
             //Act
-            var response = await mediator.Send(new DeleteRoleCommand()
+            var response = await mediator.Send(new DisabledRoleCommand()
             {
                 Name = roleName
             });
@@ -71,7 +72,7 @@ namespace Auth.Application.UT.Roles.Commans
             //Act
             Func<Task<Unit>> act = async () =>
             {                
-                var response = await mediator.Send(new DeleteRoleCommand()
+                var response = await mediator.Send(new DisabledRoleCommand()
                 {
                     Name = roleName
                 });

@@ -1,4 +1,4 @@
-﻿using Auth.Application.Roles.Queries.SearchRole.Models;
+﻿using Auth.Application.Roles.Queries.Models;
 using Auth.Domain.Roles;
 using System;
 using System.Collections.Generic;

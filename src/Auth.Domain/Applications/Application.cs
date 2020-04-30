@@ -6,9 +6,13 @@ namespace Auth.Domain.Applications
 {
     public class Application : AuditableEntity
     {
-        public string Name { get; private set; }
+        public string _name;
+        public string Name
+        {
+            get => _name;
+            private set => _name = value?.ToLowerInvariant();
+        }
         public string Description { get; set; }
-        public bool IsEnabled { get; set; }
 
         public Version Version { get; set; }
         public IEnumerable<Permision> Permisions { get; set; }

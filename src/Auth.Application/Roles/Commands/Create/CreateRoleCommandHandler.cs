@@ -1,12 +1,8 @@
 ﻿using Auth.Application.Contracts;
 using Auth.Application.Exceptions;
-using Auth.Application.Extensions;
 using Auth.Domain.Roles;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,9 +11,11 @@ namespace Auth.Application.Roles.Commands.Create
     public class CreateRoleCommandHandler : IRequestHandler<CreateRoleCommand, string>
     {
         private readonly IAppDbContext _context;
-        public CreateRoleCommandHandler(IAppDbContext context)
+        private readonly ICurrentUserService _cuserService;
+        public CreateRoleCommandHandler(IAppDbContext context, ICurrentUserService cuserService)
         {
             _context = context;
+            _cuserService = cuserService;
         }
         public async Task<string> Handle(CreateRoleCommand command, CancellationToken cancellationToken)
         {

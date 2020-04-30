@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Auth.Application.Roles.Queries.Models;
+using MediatR;
 using System.Collections.Generic;
 
 namespace Auth.Application.Roles.Queries.SearchRole.Models

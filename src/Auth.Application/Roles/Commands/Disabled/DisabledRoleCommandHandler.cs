@@ -3,31 +3,31 @@ using Auth.Application.Exceptions;
 using Auth.Domain.Roles;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Auth.Application.Roles.Commands.Delete
 {
-    public class DeleteRoleCommandHandler : IRequestHandler<DeleteRoleCommand>
+    public class DisabledRoleCommandHandler : IRequestHandler<DisabledRoleCommand>
     {
-
         private readonly IAppDbContext _context;
-        public DeleteRoleCommandHandler(IAppDbContext context)
+        private readonly ICurrentUserService _cuserService;
+        public DisabledRoleCommandHandler(IAppDbContext context, ICurrentUserService cuserService)
         {
             _context = context;
+            _cuserService = cuserService;
         }
-        public async Task<Unit> Handle(DeleteRoleCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DisabledRoleCommand command, CancellationToken cancellationToken)
         {
-            var entity = await _context.Roles
-                  .Include(r => r.Users)
+            var entity = await _context.Roles                  
                  .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);
             if (entity == null)
             {
                 throw new NotFoundException(nameof(Role), command.Name);
             }            
-
             cancellationToken.ThrowIfCancellationRequested();
-            _context.Roles.Remove(entity);
+            entity.IsEnabled = false;
             await _context.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

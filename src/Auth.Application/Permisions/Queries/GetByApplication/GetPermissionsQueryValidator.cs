@@ -1,15 +1,12 @@
-﻿using FluentValidation;
+﻿using Auth.Application.Permisions.Queries.GetByApplication.Models;
+using FluentValidation;
 
-namespace Auth.Application.Permisions.Queries.Get
+namespace Auth.Application.Permisions.Queries.GetByApplication
 {
     public class GetPermissionsQueryValidator : AbstractValidator<GetPermissionsQuery>
     {
         public GetPermissionsQueryValidator()
         {
-            RuleFor(r => r.Username)
-                .Transform( u=> u.ToLowerInvariant())
-                .NotEmpty();
-
             RuleFor(r => r.ApplicationName)
                 .Transform(u => u.ToLowerInvariant())
                 .NotEmpty();

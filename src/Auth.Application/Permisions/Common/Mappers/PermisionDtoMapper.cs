@@ -1,6 +1,7 @@
-﻿using Auth.Domain.Applications;
+﻿using Auth.Application.Permisions.Common.Models;
+using Auth.Domain.Applications;
 
-namespace Auth.Application.Permisions.Queries.Get
+namespace Auth.Application.Permisions.Common.Mappers
 {
     internal static class PermisionDtoMapper
     {

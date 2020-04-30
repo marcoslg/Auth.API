@@ -9,19 +9,23 @@ using System.Threading.Tasks;
 
 namespace Auth.Application.Roles.Queries.Get
 {
-    public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, RoleVM>
+    public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, RolePermisionsVM>
     {
         private readonly IAppDbContext _context;
         public GetRoleQueryHandler(IAppDbContext context)
         {
             _context = context;
         }
-        public async Task<RoleVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
+        public async Task<RolePermisionsVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name.ToLowerInvariant();
             cancellationToken.ThrowIfCancellationRequested();
             var role = await _context.Roles.AsNoTracking()
-                .SingleOrDefaultAsync(r => r.Name == normalizedName, cancellationToken);            
+                .Include(r => r.Applications)
+                    .ThenInclude(ar => ar.Application)
+                .Include(r => r.Applications)
+                    .ThenInclude(ar => ar.Permisions)
+                .SingleOrDefaultAsync(r => r.IsEnabled && r.Name == normalizedName, cancellationToken);            
             if (role == null)
             {
                 cancellationToken.ThrowIfCancellationRequested();

@@ -1,4 +1,4 @@
-﻿namespace Auth.Application.Permisions.Queries.Get
+﻿namespace Auth.Application.Permisions.Common.Models
 {
     public class PermissionDto
     {

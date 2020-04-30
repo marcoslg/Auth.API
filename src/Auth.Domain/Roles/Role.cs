@@ -25,6 +25,7 @@ namespace Auth.Domain.Roles
             Name = roleName;
             Description = description;
             Applications = applications ?? new List<ApplicationRole>();
+            IsEnabled = true;
         }
 
         public IEnumerable<User> Users { get; set; }
