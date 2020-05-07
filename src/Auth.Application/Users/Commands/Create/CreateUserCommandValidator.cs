@@ -13,11 +13,10 @@ namespace Auth.Application.Users.Commands.Create
                 .NotNull()
                 .NotEmpty();
         }
-
-        protected override bool PreValidate(ValidationContext<CreateUserCommand> context, ValidationResult result)
+        public override ValidationResult Validate(ValidationContext<CreateUserCommand> context)
         {
-            var validate = base.PreValidate(context, result);
-            if (validate)
+            var validate = base.Validate(context);
+            if (validate.IsValid)
             {
                 context.InstanceToValidate.UserName = context.InstanceToValidate.UserName.ToLowerInvariant();
             }
