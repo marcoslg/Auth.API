@@ -1,55 +1,97 @@
-﻿using Auth.Domain.Roles;
+﻿using Auth.Application.Contracts;
+using Auth.Application.Extensions;
+using Auth.Domain.Applications;
+using Auth.Domain.Roles;
 using Auth.Domain.Users;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using MockQueryable.NSubstitute;
 using NSubstitute;
+using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Reflection;
 namespace Auth.Application.UT.Common
 {
-    internal static class ServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMocks(this IServiceCollection service)
-        => service
-            .AddScoped<IRoleStore<Role>>(sp => Substitute.For<IRoleStore<Role>>())
-            .AddScoped<IEnumerable<IRoleValidator<Role>>>(sp => Substitute.For<IEnumerable<IRoleValidator<Role>>>())
-            .AddScoped<ILookupNormalizer>(sp => Substitute.For<ILookupNormalizer>())
-            .AddScoped<IdentityErrorDescriber>(sp => Substitute.For<IdentityErrorDescriber>())
-            .AddScoped<ILogger<RoleManager<Role>>>(sp => Substitute.For<ILogger<RoleManager<Role>>>())
-            .AddScoped<RoleManager<Role>>(sp => Substitute.For<RoleManager<Role>>(sp.GetService< IRoleStore<Role>>(),
-                sp.GetService<IEnumerable<IRoleValidator<Role>>>(),
-                sp.GetService<ILookupNormalizer>(),
-                sp.GetService<IdentityErrorDescriber>(),
-                sp.GetService<ILogger<RoleManager<Role>>>()
-                ))
-            //user
-            .AddScoped<IUserStore<User>>(sp => Substitute.For<IUserStore<User>>())
-            .AddScoped<IPasswordHasher<User>>(sp => Substitute.For<IPasswordHasher<User>>())
-            .AddScoped<IEnumerable<IUserValidator<User>>>(sp => Substitute.For<IEnumerable<IUserValidator<User>>>())
-            .AddScoped<IEnumerable<IPasswordValidator<User>>>(sp => Substitute.For<IEnumerable<IPasswordValidator<User>>>())
-            .AddScoped<ILogger<UserManager<User>>>(sp => Substitute.For<ILogger<UserManager<User>>>())
-            .AddScoped<UserManager<User>>(sp =>
-            Substitute.For<UserManager<User>>(sp.GetService<IUserStore<User>>(),
-                sp.GetService<IPasswordHasher<User>>(),
-                sp.GetService<IEnumerable<IUserValidator<User>>>(),
-                sp.GetService<IEnumerable<IPasswordValidator<User>>>(),
-                sp.GetService<ILookupNormalizer>(),
-                sp.GetService<IdentityErrorDescriber>(),
-                sp,
-                sp.GetService<ILogger<UserManager<User>>>()
-                ))
-            ;
+        {
+            return service
+            .AddSingleton<ICurrentUserService>(sp =>
+            {
+                var curs = Substitute.For<ICurrentUserService>();
+                curs.UserName.Returns("unittesting");
+                return curs;
+            })
+            .AddDBSetMocks<Auth.Domain.Applications.Application>(sp =>
+            {
+                var data = new List<Auth.Domain.Applications.Application>
+                {
+                    new Auth.Domain.Applications.Application("auth.application")
+                };
+                return data;
+            })
+            .AddDBSetMocks<User>(sp =>
+            {
+                var username = sp.GetService<ICurrentUserService>().UserName;
+                var roles = sp.GetService<DbSet<Role>>();
+                var data = new List<User>()
+                {
+                    new User(username, roles.ToList())
+                };
+                return data;
+            })
+            .AddDBSetMocks<Role>(sp =>
+            {
+                var applications = sp.GetService<DbSet<Auth.Domain.Applications.Application>>();
+                var authPermisions = sp.GetService<IAuthPermisions>();
+                var username = sp.GetService<ICurrentUserService>().UserName;
 
-        /*
-       IUserStore<TUser> store, IOptions<IdentityOptions> optionsAccessor,
-       IPasswordHasher<TUser> passwordHasher, 
-       IEnumerable<IUserValidator<TUser>> userValidators,
-       IEnumerable<IPasswordValidator<TUser>> passwordValidators,
-       ILookupNormalizer keyNormalizer, 
-       IdentityErrorDescriber errors,
-       IServiceProvider services,
-       ILogger<UserManager<TUser>> logger
-         */
+                var users = new List<User>()
+                {
+                    new User(username)
+                };
+                var data = new List<Role>()
+                {
+                    new Role("admin","admin desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions=authPermisions.Permissions }))
+                    { 
+                        Users = users
+                    },
+                    new Role("guest","guest desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions= new List<Permision>()
+                    {
+                        Permision.For(AuthPermisions.RoleGet),
+                        Permision.For(AuthPermisions.RoleSearchrole),
+                        Permision.For(AuthPermisions.UserGet),
+                        Permision.For(AuthPermisions.UserSearchrole)
+                    } }))
+                };
+
+                
+                
+                return data;
+            })
+            .AddScoped<IAppDbContext>(sp =>
+            {
+                var dbContext = Substitute.For<IAppDbContext>();
+                var roles = sp.GetService<DbSet<Role>>();
+                dbContext.Roles.Returns(roles);
+                var users = sp.GetService<DbSet<User>>();
+                dbContext.Users.Returns(users);
+                var apps = sp.GetService<DbSet<Auth.Domain.Applications.Application>>();
+                dbContext.Applications.Returns(apps);
+                return dbContext;
+            });
+        }
+        public static IServiceCollection AddDBSetMocks<T>(this IServiceCollection service, Func<IServiceProvider, IEnumerable<T>> fakeData)
+                    where T : class
+        {
+            return service.AddScoped<DbSet<T>>(sp =>
+            {
+                var dataFake = fakeData(sp);
+                var mock = dataFake.AsQueryable().BuildMockDbSet();
+                return mock;
+            });
+        }
     }
 }

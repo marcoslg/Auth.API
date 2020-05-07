@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace Auth.Application.Roles.Commands.Create
 {
@@ -7,10 +8,18 @@ namespace Auth.Application.Roles.Commands.Create
         public CreateRoleCommandValidator()
         {
             RuleFor(v => v.Name)
-                .Transform(n=> n.ToLowerInvariant())
-                .MaximumLength(200)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(200);
+        }
+        public override ValidationResult Validate(ValidationContext<CreateRoleCommand> context)
+        {
+            var validate = base.Validate(context);
+            if (validate.IsValid)
+            {
+                context.InstanceToValidate.Name = context.InstanceToValidate.Name.ToLowerInvariant();
+            }
+            return validate;
         }
     }
 }

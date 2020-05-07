@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Exceptions;
 using Auth.Application.Roles.Queries.Get.Models;
+using Auth.Application.Roles.Queries.Models;
 using Auth.Application.UT.Common;
 using Auth.Domain.Roles;
 using FluentAssertions;
@@ -44,11 +45,7 @@ namespace Auth.Application.UT.Roles.Queries
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-
             var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();
-            rolemanager.FindByNameAsync("").ReturnsForAnyArgs(new Role(roleName));
-
             //Act
 
             var response = await mediator.Send(new GetRoleQuery()
@@ -62,16 +59,13 @@ namespace Auth.Application.UT.Roles.Queries
         }
 
         [Theory]
-        [InlineData("admin")]
-        [InlineData("guest")]
+        [InlineData("admin1")]
+        [InlineData("guest1")]
         public async Task When_GetQuery_InputIsValid_ThrowNotFoundException(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-
             var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();
-            rolemanager.FindByNameAsync("").Returns((Role)null);
 
             //Act
             Func<Task<RoleVM>> act = async () =>

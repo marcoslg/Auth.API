@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Permisions.Queries.GetByApplication.Models;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Auth.Application.Permisions.Queries.GetByApplication
 {
@@ -8,8 +9,17 @@ namespace Auth.Application.Permisions.Queries.GetByApplication
         public GetPermissionsQueryValidator()
         {
             RuleFor(r => r.ApplicationName)
-                .Transform(u => u.ToLowerInvariant())
                 .NotEmpty();
+        }      
+
+        public override ValidationResult Validate(ValidationContext<GetPermissionsQuery> context)
+        {
+            var validate = base.Validate(context);
+            if (validate.IsValid)
+            {
+                context.InstanceToValidate.ApplicationName = context.InstanceToValidate.ApplicationName.ToLowerInvariant();
+            }
+            return validate;
         }
     }
 }

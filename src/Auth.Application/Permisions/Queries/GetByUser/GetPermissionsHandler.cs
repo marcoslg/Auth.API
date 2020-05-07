@@ -31,7 +31,7 @@ namespace Auth.Application.Permisions.Queries.GetByUser
             {
                 throw new NotFoundException(nameof(user), username);
             }
-            if (user.IsEnabled)
+            if (!user.IsEnabled)
             {
                 throw new LockedException(nameof(user), username);
             }

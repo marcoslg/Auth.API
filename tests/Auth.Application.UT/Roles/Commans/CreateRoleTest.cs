@@ -5,7 +5,6 @@ using Auth.Domain.Roles;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System;
@@ -35,17 +34,13 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin")]
-        [InlineData("guest")]
+        [InlineData("admin_test")]
+        [InlineData("guest_test")]
         public async Task When_CreateRole_InputIsValid_Return(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-
-            var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();
-            rolemanager.FindByNameAsync("").ReturnsForAnyArgs((Role)null);
-            rolemanager.CreateAsync(null).ReturnsForAnyArgs(new TestIdentityResult(true));
+            var mediator = sp.GetService<IMediator>();           
             //Act
             var response = await mediator.Send(new CreateRoleCommand()
             {
@@ -65,8 +60,6 @@ namespace Auth.Application.UT.Roles.Commans
             var sp = scope.ServiceProvider;
 
             var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();            
-            rolemanager.FindByNameAsync("").ReturnsForAnyArgs(new Role(roleName));
             //Act
             Func<Task<string>> act = async () =>
             {                

@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Auth.Application.Attributtes;
+using MediatR;
 using System.Collections.Generic;
 
 namespace Auth.Application.Roles.Commands.Create
 {
+    [Authorize(AuthPermisions.RoleCreated)]
     public class CreateRoleCommand : IRequest<string>
     {
         public string Name { get; set; }

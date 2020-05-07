@@ -1,12 +1,12 @@
-﻿using Auth.Application.Exceptions;
+﻿using Auth.Application.Contracts;
+using Auth.Application.Exceptions;
 using Auth.Application.Roles.Commands.Delete;
-using Auth.Application.Roles.Commands.Enabled;
 using Auth.Application.UT.Common;
 using Auth.Domain.Roles;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System;
@@ -44,10 +44,8 @@ namespace Auth.Application.UT.Roles.Commans
             var sp = scope.ServiceProvider;
 
             var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();
-            
-            rolemanager.FindByNameAsync("").ReturnsForAnyArgs(new Role(roleName));
-            rolemanager.DeleteAsync(null).ReturnsForAnyArgs(new TestIdentityResult(true));
+            var rolemanager = sp.GetService<IAppDbContext>();
+           
             //Act
             var response = await mediator.Send(new DisabledRoleCommand()
             {
@@ -59,16 +57,13 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin")]
-        [InlineData("guest")]
+        [InlineData("admin1")]
+        [InlineData("guest1")]
         public async Task When_DeleteRole_InputIsValid_ThrowNotFoundException(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-
             var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<RoleManager<Role>>();
-            rolemanager.FindByNameAsync("").ReturnsForAnyArgs((Role)null);
             //Act
             Func<Task<Unit>> act = async () =>
             {                

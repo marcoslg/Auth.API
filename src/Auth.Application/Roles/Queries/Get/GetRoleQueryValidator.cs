@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Roles.Queries.Get.Models;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Auth.Application.Roles.Queries.Get
 {
@@ -8,10 +9,18 @@ namespace Auth.Application.Roles.Queries.Get
         public GetRoleQueryValidator()
         {
             RuleFor(r => r.Name)
-                .Transform(u => u.ToLowerInvariant())
-                .MaximumLength(200)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(200);
+        }
+        public override ValidationResult Validate(ValidationContext<GetRoleQuery> context)
+        {
+            var validate = base.Validate(context);
+            if (validate.IsValid)
+            {
+                context.InstanceToValidate.Name = context.InstanceToValidate.Name.ToLowerInvariant();
+            }
+            return validate;
         }
     }
 }

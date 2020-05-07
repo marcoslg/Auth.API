@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Auth.Application.Users.Commands
+namespace Auth.Application.Users.Commands.Create
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
     {

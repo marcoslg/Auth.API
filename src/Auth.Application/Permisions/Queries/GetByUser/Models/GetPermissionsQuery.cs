@@ -8,5 +8,16 @@ namespace Auth.Application.Permisions.Queries.GetByUser.Models
     {
         public string Username { get; set; }
         public string ApplicationName { get; set; }
+
+        public GetPermissionsQuery()
+        {
+
+        }
+
+        public GetPermissionsQuery(string username, string appName)
+        {
+            Username = username;
+            ApplicationName = appName;
+        }
     }
 }

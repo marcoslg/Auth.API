@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Permisions.Queries.GetByUser.Models;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace Auth.Application.Permisions.Queries.GetByUser
 {
@@ -8,12 +9,20 @@ namespace Auth.Application.Permisions.Queries.GetByUser
         public GetPermissionsQueryValidator()
         {
             RuleFor(r => r.Username)
-                .Transform(u => u.ToLowerInvariant())
                 .NotEmpty();
 
             RuleFor(r => r.ApplicationName)
-                .Transform(u => u.ToLowerInvariant())
                 .NotEmpty();
+        }
+        public override ValidationResult Validate(ValidationContext<GetPermissionsQuery> context)
+        {
+            var validate = base.Validate(context);
+            if (validate.IsValid)
+            {
+                context.InstanceToValidate.ApplicationName = context.InstanceToValidate.ApplicationName.ToLowerInvariant();
+                context.InstanceToValidate.Username = context.InstanceToValidate.Username.ToLowerInvariant();
+            }
+            return validate;
         }
     }
 }

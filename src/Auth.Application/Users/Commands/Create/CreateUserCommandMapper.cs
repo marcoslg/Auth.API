@@ -2,7 +2,7 @@
 using Auth.Domain.Users;
 using System.Linq;
 
-namespace Auth.Application.Users.Commands
+namespace Auth.Application.Users.Commands.Create
 {
     internal static class CreateUserCommandMapper
     {
