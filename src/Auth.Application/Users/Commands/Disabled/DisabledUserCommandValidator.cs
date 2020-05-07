@@ -1,18 +1,19 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace Auth.Application.Users.Commands.Create
+namespace Auth.Application.Users.Commands.Disabled
 {
-    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    public class DisabledUserCommandValidator : AbstractValidator<DisabledUserCommand>
     {
-        public CreateUserCommandValidator()
+        public DisabledUserCommandValidator()
         {
             RuleFor(v => v.UserName)
                 .NotNull()
                 .NotEmpty()
                 .MaximumLength(200);
         }
-        public override ValidationResult Validate(ValidationContext<CreateUserCommand> context)
+
+        public override ValidationResult Validate(ValidationContext<DisabledUserCommand> context)
         {
             var validate = base.Validate(context);
             if (validate.IsValid)

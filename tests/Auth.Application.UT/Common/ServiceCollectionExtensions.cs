@@ -15,16 +15,25 @@ using System.Reflection;
 
 namespace Auth.Application.UT.Common
 {
+
+    internal class Constants
+    {
+        public const string UserAdmin = "admin";
+        public const string UserGuest = "guest";
+        public const string RoleAdmin = "admin";
+        public const string RoleGuest = "guest";
+    }
     [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
+        
         public static IServiceCollection AddMocks(this IServiceCollection service)
         {
             return service
             .AddSingleton<ICurrentUserService>(sp =>
             {
                 var curs = Substitute.For<ICurrentUserService>();
-                curs.UserName.Returns("admin");
+                curs.UserName.Returns(Constants.UserAdmin);
                 return curs;
             })
             .AddDBSetMocks<Auth.Domain.Applications.Application>(sp =>
@@ -41,7 +50,8 @@ namespace Auth.Application.UT.Common
                 var roles = sp.GetService<DbSet<Role>>();
                 var data = new List<User>()
                 {
-                    new User(username, roles.ToList())
+                    new User(Constants.UserAdmin, roles.ToList()),
+                    new User(Constants.UserGuest, roles.Where(r=> r.Name == Constants.RoleGuest).ToList())
                 };
                 return data;
             })
@@ -51,15 +61,15 @@ namespace Auth.Application.UT.Common
                 var authPermisions = sp.GetService<IAuthPermisions>();
                 var users = new List<User>()
                 {
-                    new User("admin")
+                    new User(Constants.UserAdmin)
                 };
                 var data = new List<Role>()
                 {
-                    new Role("admin","admin desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions=authPermisions.Permissions }))
+                    new Role(Constants.RoleAdmin,"admin desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions=authPermisions.Permissions }))
                     { 
                         Users = users
                     },
-                    new Role("guest","guest desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions= new List<Permision>()
+                    new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions= new List<Permision>()
                     {
                         Permision.For(AuthPermisions.RoleGet),
                         Permision.For(AuthPermisions.RoleSearchrole),
@@ -69,7 +79,7 @@ namespace Auth.Application.UT.Common
                     { 
                         Users = new List<User>
                         {
-                            new User("guest")
+                            new User(Constants.UserGuest)
                         }
                     }
                 };

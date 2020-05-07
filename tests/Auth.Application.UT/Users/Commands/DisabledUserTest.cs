@@ -1,6 +1,6 @@
 ﻿using Auth.Application.Contracts;
 using Auth.Application.Exceptions;
-using Auth.Application.Roles.Commands.Enabled;
+using Auth.Application.Users.Commands.Disabled;
 using Auth.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;
@@ -10,23 +10,23 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
-namespace Auth.Application.UT.Roles.Commans
+namespace Auth.Application.UT.Users.Commans
 {
     [ExcludeFromCodeCoverage]
-    public class EnabledRoleTest : BaseTest
+    public class DisabledUserTest : BaseTest
     {
         [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed tincidunt magna, ac consequat mauris. Praesent turpis augue, laoreet sed justo ut, efficitur euismod tortor. Ut laoreet nec ex nunc asdsdasdas das asdasdasdasdas")]
-        public async Task When_EnabledRole_InputInValid_ThrowValidationException(string roleName)
+        public async Task When_DisabledUser_InputInValid_ThrowValidationException(string userName)
         {
             var mediator = ServiceProvider.GetService<IMediator>();
             Func<Task<Unit>> act = async () =>
             {
-                var response = await mediator.Send(new EnabledRoleCommand()
+                var response = await mediator.Send(new DisabledUserCommand()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };
@@ -35,9 +35,9 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData(Constants.RoleAdmin)]
-        [InlineData(Constants.RoleGuest)]
-        public async Task When_EnabledRole_InputIsValid_Return(string roleName)
+        [InlineData(Constants.UserAdmin)]
+        [InlineData(Constants.UserGuest)]
+        public async Task When_DisabledUser_InputIsValid_Return(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
@@ -46,9 +46,9 @@ namespace Auth.Application.UT.Roles.Commans
             var rolemanager = sp.GetService<IAppDbContext>();
 
             //Act
-            var response = await mediator.Send(new EnabledRoleCommand()
+            var response = await mediator.Send(new DisabledUserCommand()
             {
-                Name = roleName
+                UserName = userName
             });
             //Assert
             response.Should().NotBeNull();
@@ -56,9 +56,9 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData(Constants.RoleAdmin + "1")]
-        [InlineData(Constants.RoleGuest + "guest1")]
-        public async Task When_EnabledRole_InputIsValid_ThrowNotFoundException(string roleName)
+        [InlineData(Constants.UserAdmin + "1")]
+        [InlineData(Constants.UserGuest + "guest1")]
+        public async Task When_DisabledUser_InputIsValid_ThrowNotFoundException(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
@@ -66,9 +66,9 @@ namespace Auth.Application.UT.Roles.Commans
             //Act
             Func<Task<Unit>> act = async () =>
             {
-                var response = await mediator.Send(new EnabledRoleCommand()
+                var response = await mediator.Send(new DisabledUserCommand()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };

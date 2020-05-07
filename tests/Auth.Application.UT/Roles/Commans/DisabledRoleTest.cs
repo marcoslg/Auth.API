@@ -35,8 +35,8 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin")]
-        [InlineData("guest")]
+        [InlineData(Constants.RoleAdmin)]
+        [InlineData(Constants.RoleGuest)]
         public async Task When_DisabledRole_InputIsValid_Return(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
@@ -56,8 +56,8 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin1")]
-        [InlineData("guest1")]
+        [InlineData(Constants.RoleAdmin + "1")]
+        [InlineData(Constants.RoleGuest + "guest1")]
         public async Task When_DisabledRole_InputIsValid_ThrowNotFoundException(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
