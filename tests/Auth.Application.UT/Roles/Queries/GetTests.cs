@@ -9,12 +9,14 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Auth.Application.UT.Roles.Queries
 {
+    [ExcludeFromCodeCoverage]
     public class GetTests : BaseTest
     {
 

@@ -10,10 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 namespace Auth.Application.UT.Roles.Commans
 {
+    [ExcludeFromCodeCoverage]
     public class DeleteRoleTest : BaseTest
     {
         [Theory]

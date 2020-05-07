@@ -3,6 +3,9 @@ using System;
 namespace Auth.Application.UT.Common
 {
     using Microsoft.Extensions.DependencyInjection;
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public class BaseTest
     {
         public IServiceProvider ServiceProvider { get; private set; }

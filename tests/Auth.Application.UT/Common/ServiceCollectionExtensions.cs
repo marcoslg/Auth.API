@@ -9,10 +9,13 @@ using MockQueryable.NSubstitute;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+
 namespace Auth.Application.UT.Common
 {
+    [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMocks(this IServiceCollection service)

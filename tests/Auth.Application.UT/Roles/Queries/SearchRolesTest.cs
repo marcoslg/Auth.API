@@ -3,11 +3,13 @@ using Auth.Application.UT.Common;
 using FluentAssertions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Auth.Application.UT.Roles.Queries
 {
+    [ExcludeFromCodeCoverage]
     public class SearchRolesTest : BaseTest
     {
         [Theory]

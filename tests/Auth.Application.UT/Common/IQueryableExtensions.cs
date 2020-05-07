@@ -1,11 +1,13 @@
 ﻿using NSubstitute;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
 namespace Auth.Application.UT.Common
 {
+    [ExcludeFromCodeCoverage]
     internal static class IQueryableExtensions
     {
         public static IQueryable<T> Initialize<T>(this IQueryable<T> dbSet, IQueryable<T> data) where T : class
