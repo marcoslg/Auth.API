@@ -1,20 +1,18 @@
 ﻿using Auth.Application.Exceptions;
-using Auth.Application.Roles.Queries.Get.Models;
-using Auth.Application.Roles.Queries.Models;
+using Auth.Application.Users.Queries.Get.Models;
+using Auth.Application.Users.Queries.Models;
 using Auth.Application.UT.Common;
-using Auth.Domain.Roles;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using NSubstitute;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Auth.Application.UT.Roles.Queries
+namespace Auth.Application.UT.Users.Queries
 {
     [ExcludeFromCodeCoverage]
     public class GetTests : BaseTest
@@ -24,15 +22,15 @@ namespace Auth.Application.UT.Roles.Queries
         [InlineData(null)]
         [InlineData("")]
         [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed tincidunt magna, ac consequat mauris. Praesent turpis augue, laoreet sed justo ut, efficitur euismod tortor. Ut laoreet nec ex nunc asdsdasdas das asdasdasdasdas")]
-        public async Task When_GetRoleQuery_InputInValid_ThrowValidationException(string roleName)
+        public async Task When_GetUserQuery_InputInValid_ThrowValidationException(string userName)
         {
             var mediator = ServiceProvider.GetService<IMediator>();
-            Func<Task<RoleVM>> act = async () =>
+            Func<Task<UserVM>> act = async () =>
             {
                 var cancellationSourceToken = new CancellationTokenSource();
-                var response = await mediator.Send(new GetRoleQuery()
+                var response = await mediator.Send(new GetUserQuery()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };
@@ -41,18 +39,18 @@ namespace Auth.Application.UT.Roles.Queries
         }
 
         [Theory]
-        [InlineData(Constants.RoleAdmin)]
-        [InlineData(Constants.RoleGuest)]
-        public async Task When_GetRoleQuery_InputIsValid_ReturnRoleVM(string roleName)
+        [InlineData("admin")]
+        [InlineData("guest")]
+        public async Task When_GetUserQuery_InputIsValid_ReturnRoleVM(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
             var mediator = sp.GetService<IMediator>();
             //Act
 
-            var response = await mediator.Send(new GetRoleQuery()
+            var response = await mediator.Send(new GetUserQuery()
             {
-                Name = roleName
+                UserName = userName
             });
 
             //Assert
@@ -63,19 +61,19 @@ namespace Auth.Application.UT.Roles.Queries
         [Theory]
         [InlineData("admin1")]
         [InlineData("guest1")]
-        public async Task When_GetRoleQuery_InputIsValid_ThrowNotFoundException(string roleName)
+        public async Task When_GetUserQuery_InputIsValid_ThrowNotFoundException(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
             var mediator = sp.GetService<IMediator>();
 
             //Act
-            Func<Task<RoleVM>> act = async () =>
+            Func<Task<UserVM>> act = async () =>
             {
                 var cancellationSourceToken = new CancellationTokenSource();
-                var response = await mediator.Send(new GetRoleQuery()
+                var response = await mediator.Send(new GetUserQuery()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };
