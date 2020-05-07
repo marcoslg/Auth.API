@@ -1,6 +1,5 @@
-﻿using Auth.Application.Contracts;
-using Auth.Application.Exceptions;
-using Auth.Application.Roles.Commands.Enabled;
+﻿using Auth.Application.Exceptions;
+using Auth.Application.Users.Commands.Create;
 using Auth.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;
@@ -10,23 +9,24 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
-namespace Auth.Application.UT.Roles.Commans
+
+namespace Auth.Application.UT.Users.Commans
 {
     [ExcludeFromCodeCoverage]
-    public class EnabledRoleTest : BaseTest
+    public class CreateUserTest : BaseTest
     {
         [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed tincidunt magna, ac consequat mauris. Praesent turpis augue, laoreet sed justo ut, efficitur euismod tortor. Ut laoreet nec ex nunc asdsdasdas das asdasdasdasdas")]
-        public async Task When_EnabledRole_InputInValid_ThrowValidationException(string roleName)
+        public async Task When_CreateUser_InputInValid_ThrowValidationException(string userName)
         {
             var mediator = ServiceProvider.GetService<IMediator>();
-            Func<Task<Unit>> act = async () =>
-            {
-                var response = await mediator.Send(new EnabledRoleCommand()
+            Func<Task<string>> act = async () =>
+            {                
+                var response = await mediator.Send(new CreateUserCommand()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };
@@ -35,20 +35,17 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData(Constants.RoleAdmin)]
-        [InlineData(Constants.RoleGuest)]
-        public async Task When_EnabledRole_InputIsValid_Return(string roleName)
+        [InlineData(Constants.UserAdmin + "_test")]
+        [InlineData(Constants.UserGuest  +"_test")]
+        public async Task When_CreateUser_InputIsValid_Return(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-
-            var mediator = sp.GetService<IMediator>();
-            var rolemanager = sp.GetService<IAppDbContext>();
-
+            var mediator = sp.GetService<IMediator>();           
             //Act
-            var response = await mediator.Send(new EnabledRoleCommand()
+            var response = await mediator.Send(new CreateUserCommand()
             {
-                Name = roleName
+                UserName = userName
             });
             //Assert
             response.Should().NotBeNull();
@@ -56,24 +53,25 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData(Constants.RoleAdmin + "1")]
-        [InlineData(Constants.RoleGuest + "guest1")]
-        public async Task When_EnabledRole_InputIsValid_ThrowNotFoundException(string roleName)
+        [InlineData(Constants.UserAdmin)]
+        [InlineData(Constants.UserGuest)]
+        public async Task When_CreateUser_InputIsValid_ThrowExistsException(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
+
             var mediator = sp.GetService<IMediator>();
             //Act
-            Func<Task<Unit>> act = async () =>
-            {
-                var response = await mediator.Send(new EnabledRoleCommand()
+            Func<Task<string>> act = async () =>
+            {                
+                var response = await mediator.Send(new CreateUserCommand()
                 {
-                    Name = roleName
+                    UserName = userName
                 });
                 return response;
             };
             //Assert
-            act.Should().Throw<NotFoundException>();
+            act.Should().Throw<ExistsException>();
 
         }
     }

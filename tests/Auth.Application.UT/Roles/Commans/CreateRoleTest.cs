@@ -25,7 +25,7 @@ namespace Auth.Application.UT.Roles.Commans
         {
             var mediator = ServiceProvider.GetService<IMediator>();
             Func<Task<string>> act = async () =>
-            {                
+            {
                 var response = await mediator.Send(new CreateRoleCommand()
                 {
                     Name = roleName
@@ -37,13 +37,13 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin_test")]
-        [InlineData("guest_test")]
+        [InlineData(Constants.RoleAdmin + "_test")]
+        [InlineData(Constants.RoleGuest + "_test")]
         public async Task When_CreateRole_InputIsValid_Return(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
-            var mediator = sp.GetService<IMediator>();           
+            var mediator = sp.GetService<IMediator>();
             //Act
             var response = await mediator.Send(new CreateRoleCommand()
             {
@@ -55,8 +55,8 @@ namespace Auth.Application.UT.Roles.Commans
         }
 
         [Theory]
-        [InlineData("admin")]
-        [InlineData("guest")]
+        [InlineData(Constants.RoleAdmin)]
+        [InlineData(Constants.RoleGuest)]
         public async Task When_CreateRole_InputIsValid_ThrowExistsException(string roleName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
@@ -65,7 +65,7 @@ namespace Auth.Application.UT.Roles.Commans
             var mediator = sp.GetService<IMediator>();
             //Act
             Func<Task<string>> act = async () =>
-            {                
+            {
                 var response = await mediator.Send(new CreateRoleCommand()
                 {
                     Name = roleName
