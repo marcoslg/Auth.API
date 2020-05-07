@@ -24,7 +24,7 @@ namespace Auth.Application.UT.Common
             .AddSingleton<ICurrentUserService>(sp =>
             {
                 var curs = Substitute.For<ICurrentUserService>();
-                curs.UserName.Returns("unittesting");
+                curs.UserName.Returns("admin");
                 return curs;
             })
             .AddDBSetMocks<Auth.Domain.Applications.Application>(sp =>
@@ -49,11 +49,9 @@ namespace Auth.Application.UT.Common
             {
                 var applications = sp.GetService<DbSet<Auth.Domain.Applications.Application>>();
                 var authPermisions = sp.GetService<IAuthPermisions>();
-                var username = sp.GetService<ICurrentUserService>().UserName;
-
                 var users = new List<User>()
                 {
-                    new User(username)
+                    new User("admin")
                 };
                 var data = new List<Role>()
                 {
@@ -68,6 +66,12 @@ namespace Auth.Application.UT.Common
                         Permision.For(AuthPermisions.UserGet),
                         Permision.For(AuthPermisions.UserSearchrole)
                     } }))
+                    { 
+                        Users = new List<User>
+                        {
+                            new User("guest")
+                        }
+                    }
                 };
 
                 
