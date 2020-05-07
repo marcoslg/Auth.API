@@ -13,14 +13,14 @@ namespace Auth.Domain.Roles
             private set => _name = value?.ToLowerInvariant();
         }
         public string Description { get; set; }
-        public IEnumerable<ApplicationRole> Applications { get; set; }        
+        public ICollection<ApplicationRole> Applications { get; set; }        
 
         public Role(string roleName)
             : this(roleName, string.Empty)
         {
         }
 
-        public Role(string roleName, string description, IEnumerable<ApplicationRole> applications = null)
+        public Role(string roleName, string description, ICollection<ApplicationRole> applications = null)
         {
             Name = roleName;
             Description = description;

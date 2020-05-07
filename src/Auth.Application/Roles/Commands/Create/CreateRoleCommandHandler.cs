@@ -1,5 +1,6 @@
 ﻿using Auth.Application.Contracts;
 using Auth.Application.Exceptions;
+using Auth.Application.Validators;
 using Auth.Domain.Roles;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace Auth.Application.Roles.Commands.Create
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }
+            await new PermissionsExistsValidator(_context.Applications, command.Permisions, cancellationToken)
+                .ValidAsync();
             var role = command.ToMap();            
             _context.Roles.Add(role);
             cancellationToken.ThrowIfCancellationRequested();
