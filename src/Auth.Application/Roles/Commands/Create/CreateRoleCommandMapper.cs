@@ -11,7 +11,7 @@ namespace Auth.Application.Roles.Commands.Create
             => new Role(command.Name, command.Description, command.Permisions.Select(x => new ApplicationRole()
             {
                 Application = new Domain.Applications.Application(x.Key),
-                Permisions = x.Value.Select(p => Domain.Applications.Permision.For(p))
-            }));
+                Permisions = x.Value.Select(p => Domain.Applications.Permision.For(p)).ToList(),
+            }).ToList());
     }
 }

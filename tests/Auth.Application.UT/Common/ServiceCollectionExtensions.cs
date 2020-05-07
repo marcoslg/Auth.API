@@ -26,7 +26,7 @@ namespace Auth.Application.UT.Common
     [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
-        
+
         public static IServiceCollection AddMocks(this IServiceCollection service)
         {
             return service
@@ -38,9 +38,13 @@ namespace Auth.Application.UT.Common
             })
             .AddDBSetMocks<Auth.Domain.Applications.Application>(sp =>
             {
+                var authPermisions = sp.GetService<IAuthPermisions>();
                 var data = new List<Auth.Domain.Applications.Application>
                 {
                     new Auth.Domain.Applications.Application("auth.application")
+                    {
+                        Permisions = authPermisions.Permissions.ToList()
+                    }
                 };
                 return data;
             })
@@ -65,18 +69,18 @@ namespace Auth.Application.UT.Common
                 };
                 var data = new List<Role>()
                 {
-                    new Role(Constants.RoleAdmin,"admin desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions=authPermisions.Permissions }))
-                    { 
+                    new Role(Constants.RoleAdmin,"admin desc", applications.Select(a => new ApplicationRole(){Application = a,Permisions=authPermisions.Permissions.ToList() }).ToList())
+                    {
                         Users = users
                     },
-                    new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions= new List<Permision>()
+                    new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){ Application =a,Permisions= new List<Permision>()
                     {
                         Permision.For(AuthPermisions.RoleGet),
                         Permision.For(AuthPermisions.RoleSearch),
                         Permision.For(AuthPermisions.UserGet),
                         Permision.For(AuthPermisions.UserSearch)
-                    } }))
-                    { 
+                    } }).ToList())
+                    {
                         Users = new List<User>
                         {
                             new User(Constants.UserGuest)
@@ -84,8 +88,8 @@ namespace Auth.Application.UT.Common
                     }
                 };
 
-                
-                
+
+
                 return data;
             })
             .AddScoped<IAppDbContext>(sp =>

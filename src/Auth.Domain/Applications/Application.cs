@@ -15,7 +15,7 @@ namespace Auth.Domain.Applications
         public string Description { get; set; }
 
         public Version Version { get; set; }
-        public IEnumerable<Permision> Permisions { get; set; }
+        public ICollection<Permision> Permisions { get; set; }
 
         public Application(string name)
         {

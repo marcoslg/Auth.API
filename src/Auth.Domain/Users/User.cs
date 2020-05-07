@@ -18,12 +18,12 @@ namespace Auth.Domain.Users
         {
 
         }
-        public User(string username, IEnumerable<Role> roles)
+        public User(string username, ICollection<Role> roles)
         {
             UserName = username;
             Roles = roles ?? new List<Role>();
         }
 
-        public IEnumerable<Role> Roles { get; set; }
+        public ICollection<Role> Roles { get; set; }
     }
 }

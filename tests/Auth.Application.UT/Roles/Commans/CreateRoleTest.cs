@@ -1,12 +1,10 @@
 ﻿using Auth.Application.Exceptions;
 using Auth.Application.Roles.Commands.Create;
 using Auth.Application.UT.Common;
-using Auth.Domain.Roles;
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using NSubstitute;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
