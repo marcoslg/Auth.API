@@ -1,4 +1,4 @@
-﻿using Auth.Application.Roles.Queries.SearchRole.Models;
+﻿using Auth.Application.Users.Queries.SearchRole.Models;
 using Auth.Application.UT.Common;
 using FluentAssertions;
 using MediatR;
@@ -7,15 +7,17 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Auth.Application.UT.Roles.Queries
+namespace Auth.Application.UT.Users.Queries
 {
     [ExcludeFromCodeCoverage]
-    public class SearchRolesTest : BaseTest
+    public class SearchUsersTest : BaseTest
     {
         [Theory]
-        [InlineData("admi")]
-        [InlineData("gues")]
-        public async Task When_SearchRolesQuery_InputIsValid_ReturnList(string roleName)
+        [InlineData("admin")]
+        [InlineData("guest")]
+        [InlineData("ad")]
+        [InlineData("gu")]
+        public async Task When_SearchRolesQuery_InputIsValid_ReturnList(string userName)
         {
             using var scope = ServiceScopeProvider.CreateScope();
             var sp = scope.ServiceProvider;
@@ -23,9 +25,9 @@ namespace Auth.Application.UT.Roles.Queries
             var mediator = sp.GetService<IMediator>();
             //Act
 
-            var response = await mediator.Send(new SearchRolesQuery()
+            var response = await mediator.Send(new SearchUsersQuery()
             {
-                Name = roleName
+                UserName = userName
             });
             //Assert
             response.Should().HaveCountGreaterOrEqualTo(1);
