@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Auth.Application.Roles.Queries.SearchRole.Models
 {
-    [Authorize(AuthPermisions.RoleSearchrole)]
+    [Authorize(AuthPermisions.RoleSearch)]
     public class SearchRolesQuery : IRequest<IEnumerable<RoleVM>>
     {
         public string Name { get; set; }

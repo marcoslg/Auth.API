@@ -1,16 +1,13 @@
 ﻿using Auth.Application.Roles.Queries.Models;
 using Auth.Domain.Roles;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Auth.Application.Roles.Queries.SearchRole
 {
     internal static class RoleMapper
     {
         public static RoleVM ToMap(this Role role)
-        => new RoleVM(role.Name, role.Description);
+        => new RoleVM(role.Name, role.Description, role.IsEnabled);
 
         public static IQueryable<RoleVM> ToMap(this IQueryable<Role> roleQuery, int? pageSize, int? page)
         {

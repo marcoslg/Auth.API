@@ -17,7 +17,7 @@ namespace Auth.Application.Roles.Queries.Get
             {
                 permisions.Add(appPer.Application.Name, appPer.Permisions.Select(p => p.Name));
             }
-            return new RolePermisionsVM(role.Name, role.Description, permisions);
+            return new RolePermisionsVM(role.Name, role.Description, role.IsEnabled, permisions);
         }
         
 

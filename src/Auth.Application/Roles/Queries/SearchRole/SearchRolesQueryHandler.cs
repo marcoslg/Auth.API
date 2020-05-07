@@ -38,7 +38,7 @@ namespace Auth.Application.Roles.Queries.SearchRole
             Expression<Func<Role, bool>> whereExpresion = r => r.IsEnabled;
             if (!string.IsNullOrWhiteSpace(normalizedName))
             {
-                whereExpresion.And(r => r.IsEnabled && r.Name.Contains(normalizedName));
+                whereExpresion.And(r => r.Name.Contains(normalizedName));
             }            
             return whereExpresion;
         }

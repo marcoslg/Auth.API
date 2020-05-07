@@ -14,7 +14,7 @@ namespace Auth.Application
         public const string RoleDisabled = "role.disabled";
         public const string RoleEnabled = "role.enabled";
         public const string RoleGet = "role.get";
-        public const string RoleSearchrole = "role.searchrole";
+        public const string RoleSearch = "role.searchrole";
         #endregion roles
 
         #region users
@@ -22,7 +22,7 @@ namespace Auth.Application
         public const string UserDisabled = "user.disabled";
         public const string UserEnabled = "user.enabled";
         public const string UserGet = "user.get";
-        public const string UserSearchrole = "user.searchrole";
+        public const string UserSearch = "user.searchrole";
         #endregion users
         public IEnumerable<Permision> Permissions { get; private set; }
 
@@ -35,7 +35,7 @@ namespace Auth.Application
                 Permision.For(RoleDisabled),
                 Permision.For(RoleEnabled),
                 Permision.For(RoleGet),
-                Permision.For(RoleSearchrole),
+                Permision.For(RoleSearch),
                 #endregion roles
 
                 #region users
@@ -43,7 +43,7 @@ namespace Auth.Application
                 Permision.For(UserDisabled),
                 Permision.For(UserEnabled),
                 Permision.For(UserGet),
-                Permision.For(UserSearchrole),
+                Permision.For(UserSearch),
                 #endregion users
             };
         }

@@ -72,9 +72,9 @@ namespace Auth.Application.UT.Common
                     new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){Application =a,Permisions= new List<Permision>()
                     {
                         Permision.For(AuthPermisions.RoleGet),
-                        Permision.For(AuthPermisions.RoleSearchrole),
+                        Permision.For(AuthPermisions.RoleSearch),
                         Permision.For(AuthPermisions.UserGet),
-                        Permision.For(AuthPermisions.UserSearchrole)
+                        Permision.For(AuthPermisions.UserSearch)
                     } }))
                     { 
                         Users = new List<User>

@@ -18,14 +18,14 @@ namespace Auth.Application.Roles.Queries.Get
         }
         public async Task<RolePermisionsVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
-            var normalizedName = request.Name.ToLowerInvariant();
+            var normalizedName = request.Name;
             cancellationToken.ThrowIfCancellationRequested();
             var role = await _context.Roles.AsNoTracking()
                 .Include(r => r.Applications)
                     .ThenInclude(ar => ar.Application)
                 .Include(r => r.Applications)
                     .ThenInclude(ar => ar.Permisions)
-                .SingleOrDefaultAsync(r => r.IsEnabled && r.Name == normalizedName, cancellationToken);            
+                .SingleOrDefaultAsync(r => r.Name == normalizedName, cancellationToken);            
             if (role == null)
             {
                 cancellationToken.ThrowIfCancellationRequested();

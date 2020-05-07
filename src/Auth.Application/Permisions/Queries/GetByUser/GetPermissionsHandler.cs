@@ -26,7 +26,7 @@ namespace Auth.Application.Permisions.Queries.GetByUser
             var username = request.Username.ToLowerInvariant();
             var user = await _context.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.UserName == username, cancellationToken);
+                .FirstOrDefaultAsync(u => u.UserName == username && u.IsEnabled, cancellationToken);
             if (user == null)
             {
                 throw new NotFoundException(nameof(user), username);
@@ -37,7 +37,7 @@ namespace Auth.Application.Permisions.Queries.GetByUser
             }
 
             var roles = await _context.Roles.AsNoTracking()
-                .Where(r => r.Users.Any(u => u.UserName == user.UserName)
+                .Where(r => r.IsEnabled && r.Users.Any(u => u.UserName == user.UserName)
                    && r.Applications.Any(a => a.Application.Name == request.ApplicationName && a.Application.IsEnabled))
                 .Include(r => r.Applications)
                     .ThenInclude(a => a.Permisions)
