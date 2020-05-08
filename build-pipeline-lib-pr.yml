@@ -78,7 +78,7 @@ stages:
         arguments: install dotnet-reportgenerator-globaltool --tool-path . --ignore-failed-sources
       displayName: Install ReportGenerator tool
       
-    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\**\coverlet.cobertura.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:Cobertura;Badges'
+    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\**\coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:Cobertura;Badges'
       displayName: Create reports
     
     - task: PublishCodeCoverageResults@1
