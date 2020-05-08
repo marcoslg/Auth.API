@@ -48,8 +48,8 @@ stages:
 
   - job: 'Test + code coverage'
     pool: 'Default'
-      workspace:
-         clean: all          
+    workspace:
+       clean: all          
     strategy:
       maxParallel: 2
       matrix: 
