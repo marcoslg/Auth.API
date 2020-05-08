@@ -88,7 +88,7 @@ stages:
         summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet\coverage.cobertura.xml
         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
     
-- stage: Nuget-Prerelease
+- stage: Nuget_Prerelease
   jobs:
   - deployment: Prerelease
     pool: 'Default'
