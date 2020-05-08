@@ -1,10 +1,7 @@
 ﻿using Auth.Application.Roles.Queries.Get.Models;
-using Auth.Application.Roles.Queries.Models;
 using Auth.Domain.Roles;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Auth.Application.Roles.Queries.Get
 {
@@ -22,6 +19,6 @@ namespace Auth.Application.Roles.Queries.Get
         
 
         public static IQueryable<RolePermisionsVM> ToMap(this IQueryable<Role> roleQuery)
-       => roleQuery.Select(x => x.ToMap());
+            => roleQuery.Select(x => x.ToMap());
     }
 }

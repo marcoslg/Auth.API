@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{71CDA1E6-DC4E-495C-8DC6-EF8F753C9C02}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		nuget.config = nuget.config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BB40C2A-B359-4901-8981-9F56DC9325D4}"
@@ -20,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Application", "src\Aut
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E7EDAB17-D446-4EFB-A1A2-26CF942BF3FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Application.UT", "tests\Auth.Application.UT\Auth.Application.UT.csproj", "{CB126C2C-ADB6-4777-8FF1-8E4337579503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth.Application.UT", "tests\Auth.Application.UT\Auth.Application.UT.csproj", "{CB126C2C-ADB6-4777-8FF1-8E4337579503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

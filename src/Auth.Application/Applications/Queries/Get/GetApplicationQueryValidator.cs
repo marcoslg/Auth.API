@@ -1,19 +1,19 @@
-﻿using FluentValidation;
+﻿using Auth.Application.Applications.Queries.Get.Models;
+using FluentValidation;
 using FluentValidation.Results;
 
-namespace Auth.Application.Roles.Commands.Disabled
+namespace Auth.Application.Applications.Queries.Get
 {
-    public class DisabledRoleCommandValidator : AbstractValidator<DisabledRoleCommand>
+    public class GetApplicationQueryValidator : AbstractValidator<GetApplicationQuery>
     {
-        public DisabledRoleCommandValidator()
+        public GetApplicationQueryValidator()
         {
-            RuleFor(v => v.Name)
+            RuleFor(r => r.Name)
                 .NotNull()
                 .NotEmpty()
                 .MaximumLength(200);
         }
-        
-        public override ValidationResult Validate(ValidationContext<DisabledRoleCommand> context)
+        public override ValidationResult Validate(ValidationContext<GetApplicationQuery> context)
         {
             var validate = base.Validate(context);
             if (validate.IsValid)

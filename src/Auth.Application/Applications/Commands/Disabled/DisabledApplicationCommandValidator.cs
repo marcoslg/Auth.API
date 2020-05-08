@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace Auth.Application.Roles.Commands.Disabled
+namespace Auth.Application.Applications.Commands.Disabled
 {
-    public class DisabledRoleCommandValidator : AbstractValidator<DisabledRoleCommand>
+    public class DisabledApplicationCommandValidator : AbstractValidator<DisabledApplicationCommand>
     {
-        public DisabledRoleCommandValidator()
+        public DisabledApplicationCommandValidator()
         {
             RuleFor(v => v.Name)
                 .NotNull()
@@ -13,7 +13,7 @@ namespace Auth.Application.Roles.Commands.Disabled
                 .MaximumLength(200);
         }
         
-        public override ValidationResult Validate(ValidationContext<DisabledRoleCommand> context)
+        public override ValidationResult Validate(ValidationContext<DisabledApplicationCommand> context)
         {
             var validate = base.Validate(context);
             if (validate.IsValid)

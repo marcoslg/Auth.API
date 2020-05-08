@@ -10,7 +10,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
-namespace Auth.Application.UT.Roles.Commans
+namespace Auth.Application.UT.Roles.Commands
 {
     [ExcludeFromCodeCoverage]
     public class EnabledRoleTest : BaseTest

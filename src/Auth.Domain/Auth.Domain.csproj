@@ -3,7 +3,4 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Enum\" />
-  </ItemGroup>
 </Project>
