@@ -46,7 +46,7 @@ stages:
         projects: '**\*.csproj'   
         arguments: -c $(BuildConfiguration)
 
-  - job: 'Test_code coverage'
+  - job: 'Test_codeCoverage'
     pool: 'Default'
     workspace:
        clean: all          
