@@ -9,7 +9,8 @@ namespace Auth.Application.Permisions.Queries.GetByApplication
         public GetPermissionsQueryValidator()
         {
             RuleFor(r => r.ApplicationName)
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(200);
         }      
 
         public override ValidationResult Validate(ValidationContext<GetPermissionsQuery> context)

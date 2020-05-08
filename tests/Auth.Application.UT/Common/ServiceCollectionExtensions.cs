@@ -18,6 +18,7 @@ namespace Auth.Application.UT.Common
 
     internal class Constants
     {
+        public const string App = "auth.application";
         public const string UserAdmin = "admin";
         public const string UserGuest = "guest";
         public const string RoleAdmin = "admin";
@@ -41,7 +42,7 @@ namespace Auth.Application.UT.Common
                 var authPermisions = sp.GetService<IAuthPermisions>();
                 var data = new List<Auth.Domain.Applications.Application>
                 {
-                    new Auth.Domain.Applications.Application("auth.application")
+                    new Auth.Domain.Applications.Application(Constants.App)
                     {
                         Permisions = authPermisions.Permissions.ToList()
                     }
