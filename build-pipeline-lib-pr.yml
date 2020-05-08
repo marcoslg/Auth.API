@@ -68,7 +68,7 @@ stages:
          **\*.IT.csproj
         arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True --collect:"XPlat Code Coverage" /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet'
         nobuild: true
-        publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)/TestResults
+        publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)\reports
     
     
     - task: DotNetCoreCLI@2
