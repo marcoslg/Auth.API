@@ -35,14 +35,12 @@ steps:
     nugetConfigPath: nuget.config
 
 # Build solution
-- task: VSBuild@1
-  displayName: 'MSBuild'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'  
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    clean: true
-    maximumCpuCount: true
+    command: build
+    projects: '**\*.csproj'   
+    arguments: -c $(BuildConfiguration)
 
 - task: DotNetCoreCLI@2
   displayName: 'Generate code coverage'

@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{71CDA1E6-DC4E-495C-8DC6-EF8F753C9C02}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		azurepipelines-coverage.yml = azurepipelines-coverage.yml
 		build-pipeline-lib-ci.yml = build-pipeline-lib-ci.yml
 		build-pipeline-lib-pr.yml = build-pipeline-lib-pr.yml
 		nuget.config = nuget.config
