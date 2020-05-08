@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace Auth.Application.Roles.Commands.Delete
+namespace Auth.Application.Roles.Commands.Disabled
 {
     public class DisabledRoleCommandValidator : AbstractValidator<DisabledRoleCommand>
     {
