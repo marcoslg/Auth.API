@@ -40,11 +40,11 @@ stages:
   
     # Build solution
     - task: DotNetCoreCLI@2
-     displayName: 'dotnet build'  
-     inputs:
-       command: build
-       projects: '**\*.csproj'   
-       arguments: -c $(BuildConfiguration)
+      displayName: 'dotnet build'  
+      inputs:
+        command: build
+        projects: '**\*.csproj'   
+        arguments: -c $(BuildConfiguration)
 
   - job: 'Test + code coverage'
     pool: 'Default'
@@ -58,35 +58,35 @@ stages:
         release:
           buildConfiguration: release
     steps:      
-     - task: DotNetCoreCLI@2
-       displayName: 'Testing + Generate code coverage'
-       inputs:
-         command: test    
-         projects: |
-          **\*UnitTest*.csproj
-          **\*.UT.csproj
-          **\*.IT.csproj
-         arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True /p:CoverletOutputFormat=opencover,cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet' 
-         nobuild: true
-         publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)/TestResults
+    - task: DotNetCoreCLI@2
+      displayName: 'Testing + Generate code coverage'
+      inputs:
+        command: test    
+        projects: |
+         **\*UnitTest*.csproj
+         **\*.UT.csproj
+         **\*.IT.csproj
+        arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True /p:CoverletOutputFormat=opencover,cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet' 
+        nobuild: true
+        publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)/TestResults
     
     
-     - task: DotNetCoreCLI@2
-       inputs:
-         command: custom
-         custom: tool
-         arguments: install dotnet-reportgenerator-globaltool --tool-path . --ignore-failed-sources
-       displayName: Install ReportGenerator tool
-       
-     - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\reports\coverlet\coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:HtmlInline_AzurePipelines;Cobertura;Badges'
-       displayName: Create reports
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: custom
+        custom: tool
+        arguments: install dotnet-reportgenerator-globaltool --tool-path . --ignore-failed-sources
+      displayName: Install ReportGenerator tool
+      
+    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\reports\coverlet\coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:HtmlInline_AzurePipelines;Cobertura;Badges'
+      displayName: Create reports
     
-     - task: PublishCodeCoverageResults@1
-       displayName: 'Publish code coverage'
-       inputs:
-         codeCoverageTool: Cobertura
-         summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet\coverage.cobertura.xml
-         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage'
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet\coverage.cobertura.xml
+        reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
     
 - stage: Nuget-Prerelease
   jobs:
