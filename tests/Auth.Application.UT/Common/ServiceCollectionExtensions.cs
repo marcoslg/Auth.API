@@ -1,5 +1,4 @@
 ﻿using Auth.Application.Contracts;
-using Auth.Application.Extensions;
 using Auth.Domain.Applications;
 using Auth.Domain.Roles;
 using Auth.Domain.Users;
@@ -11,11 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 
 namespace Auth.Application.UT.Common
 {
-
     internal class Constants
     {
         public const string UserAdmin = "admin";
@@ -23,6 +20,7 @@ namespace Auth.Application.UT.Common
         public const string RoleAdmin = "admin";
         public const string RoleGuest = "guest";
     }
+
     [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
