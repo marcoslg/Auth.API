@@ -1,10 +1,8 @@
 ﻿using Auth.Application.Permisions.Commands.AddPermissionInRole;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
-namespace Auth.Application.UT.Common
+namespace Auth.Application.UT.Permissions.DataProvaiders
 {
     public class PermissionInvalidProvider : TheoryData<AddPermissionRoleCommand>
     {

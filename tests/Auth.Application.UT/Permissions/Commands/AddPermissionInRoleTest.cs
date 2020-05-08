@@ -9,6 +9,7 @@ using FluentAssertions;
 using System.Collections.Generic;
 using FluentValidation;
 using Auth.Application.Exceptions;
+using Auth.Application.UT.Permissions.DataProvaiders;
 
 namespace Auth.Application.UT.Permissions.Commands
 {
