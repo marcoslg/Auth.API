@@ -1,6 +1,5 @@
-# Build CI for Viseo Libraries
+# Build CI 
 # Version 1.0.0
-# Update from https://birchman-spain.visualstudio.com/BirchmanDotNet/_git/Birchman.Pipelines
 
 trigger:
   batch: true

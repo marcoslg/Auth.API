@@ -1,0 +1,7 @@
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/test/codecoverage-for-pullrequests?view=azure-devops
+coverage:
+  status: on           # Code coverage status will be posted to pull requests based on targets defined below. 
+                    # When off, code coverage status checks will not be posted to pull requests and coverage annotations will not show in changed files view.
+    comments: on    # Off by default. When on, details about coverage for each file changed will be posted as a pull request comment. 
+    diff:           # diff coverage is code coverage only for the lines changed in a pull request.
+      target: 100%  # Set this to a desired %. Default is 70%, but our target is 100%
