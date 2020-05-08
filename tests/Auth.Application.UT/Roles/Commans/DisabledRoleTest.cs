@@ -24,7 +24,7 @@ namespace Auth.Application.UT.Roles.Commans
             var mediator = ServiceProvider.GetService<IMediator>();
             Func<Task<Unit>> act = async () =>
             {                
-                var response = await mediator.Send(new DisabledRoleCommand()
+                var response = await mediator.Send(new DisabledApplicationCommand()
                 {
                     Name = roleName
                 });
@@ -46,7 +46,7 @@ namespace Auth.Application.UT.Roles.Commans
             var rolemanager = sp.GetService<IAppDbContext>();
            
             //Act
-            var response = await mediator.Send(new DisabledRoleCommand()
+            var response = await mediator.Send(new DisabledApplicationCommand()
             {
                 Name = roleName
             });
@@ -66,7 +66,7 @@ namespace Auth.Application.UT.Roles.Commans
             //Act
             Func<Task<Unit>> act = async () =>
             {                
-                var response = await mediator.Send(new DisabledRoleCommand()
+                var response = await mediator.Send(new DisabledApplicationCommand()
                 {
                     Name = roleName
                 });

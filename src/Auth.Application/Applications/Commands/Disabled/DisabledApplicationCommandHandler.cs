@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Auth.Application.Roles.Commands.Delete
+namespace Auth.Application.Applications.Commands.Delete
 {
-    public class DisabledRoleCommandHandler : IRequestHandler<DisabledRoleCommand>
+    public class DisabledApplicationCommandHandler : IRequestHandler<DisabledApplicationCommand>
     {
         private readonly IAppDbContext _context;
         private readonly ICurrentUserService _cuserService;
-        public DisabledRoleCommandHandler(IAppDbContext context, ICurrentUserService cuserService)
+        public DisabledApplicationCommandHandler(IAppDbContext context, ICurrentUserService cuserService)
         {
             _context = context;
             _cuserService = cuserService;
         }
-        public async Task<Unit> Handle(DisabledRoleCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DisabledApplicationCommand command, CancellationToken cancellationToken)
         {
             var entity = await _context.Roles                  
                  .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);
