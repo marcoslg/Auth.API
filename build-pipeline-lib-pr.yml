@@ -4,7 +4,7 @@
 trigger: none
 
 stages:
--stage: Build
+- stage: Build
  jobs: 
  - job: Build 
    pool: 'Default'
