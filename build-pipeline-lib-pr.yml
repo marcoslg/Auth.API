@@ -66,7 +66,7 @@ stages:
          **\*UnitTest*.csproj
          **\*.UT.csproj
          **\*.IT.csproj
-        arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True /p:CoverletOutputFormat="json,cobertura" /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet'
+        arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True /p:CoverletOutputFormat /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet'
         nobuild: true
         publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)\reports
     
@@ -78,7 +78,7 @@ stages:
         arguments: install dotnet-reportgenerator-globaltool --tool-path . --ignore-failed-sources
       displayName: Install ReportGenerator tool
       
-    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\reports\coverlet\coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:HtmlInline_AzurePipelines;Cobertura;Badges'
+    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\reports\**\coverlet.json -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:HtmlInline_AzurePipelines;Cobertura;Badges'
       displayName: Create reports
     
     - task: PublishCodeCoverageResults@1
