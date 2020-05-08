@@ -33,7 +33,7 @@ namespace Auth.Application.Permisions.Queries.GetByUser
             }
             if (!user.IsEnabled)
             {
-                throw new LockedException(nameof(user), username);
+                throw new DisabledException(nameof(user), username);
             }
 
             var roles = await _context.Roles.AsNoTracking()

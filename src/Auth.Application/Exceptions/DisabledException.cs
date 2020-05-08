@@ -2,24 +2,24 @@
 
 namespace Auth.Application.Exceptions
 {
-    public class LockedException : Exception
+    public class DisabledException : Exception
     {
-        public LockedException()
+        public DisabledException()
             : base()
         {
         }
 
-        public LockedException(string message)
+        public DisabledException(string message)
             : base(message)
         {
         }
 
-        public LockedException(string message, Exception innerException)
+        public DisabledException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
-        public LockedException(string name, object key)
+        public DisabledException(string name, object key)
             : base($"Entity \"{name}\" ({key}) had locked.")
         {
         }
