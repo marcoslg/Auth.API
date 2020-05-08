@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Authorize.Application.Permisions.Commands.AddPermissionInRole;
 using FluentAssertions;
 using System.Collections.Generic;
 using FluentValidation;
 using Authorize.Application.Exceptions;
 using Authorize.Application.UT.Permissions.DataProvaiders;
+using Authorize.Application.Features.Permisions.Commands.AddPermissionInRole;
 
 namespace Authorize.Application.UT.Permissions.Commands
 {
@@ -65,11 +65,11 @@ namespace Authorize.Application.UT.Permissions.Commands
 
            var result = await mediator.Send(new AddPermissionRoleCommand()
             {
-                RoleName = "guest",
+                RoleName = Constants.RoleGuest,
                 Permisions = new Dictionary<string, IEnumerable<string>>()
                        {
 
-                           {"Authorize.application", new List<string>()
+                           {Constants.App, new List<string>()
                                 {
                                     AuthPermisions.RoleGet,
                                     AuthPermisions.RoleSearch,

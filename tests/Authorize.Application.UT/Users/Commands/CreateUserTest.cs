@@ -1,5 +1,5 @@
 ﻿using Authorize.Application.Exceptions;
-using Authorize.Application.Users.Commands.Create;
+using Authorize.Application.Features.Users.Commands.Create;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;

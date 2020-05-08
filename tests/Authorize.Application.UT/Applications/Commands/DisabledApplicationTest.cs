@@ -1,5 +1,5 @@
-﻿using Authorize.Application.Applications.Commands.Disabled;
-using Authorize.Application.Exceptions;
+﻿using Authorize.Application.Exceptions;
+using Authorize.Application.Features.Applications.Commands.Disabled;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;

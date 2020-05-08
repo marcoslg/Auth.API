@@ -1,4 +1,4 @@
-﻿using Authorize.Application.Users.Queries.SearchRole.Models;
+﻿using Authorize.Application.Features.Users.Queries.SearchRole.Models;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using MediatR;

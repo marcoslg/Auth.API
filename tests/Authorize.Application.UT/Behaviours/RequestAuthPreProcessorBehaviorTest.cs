@@ -1,5 +1,4 @@
 ﻿using Authorize.Application.Exceptions;
-using Authorize.Application.Roles.Commands.Create;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using MediatR;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Authorize.Application.Contracts;
 using NSubstitute;
+using Authorize.Application.Features.Roles.Commands.Create;
 
 namespace Authorize.Application.UT.Behaviours
 {

@@ -1,6 +1,6 @@
 ﻿using Authorize.Application.Contracts;
 using Authorize.Application.Exceptions;
-using Authorize.Application.Roles.Commands.Enabled;
+using Authorize.Application.Features.Roles.Commands.Enabled;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;

@@ -1,6 +1,6 @@
 ﻿using Authorize.Application.Exceptions;
-using Authorize.Application.Users.Queries.Get.Models;
-using Authorize.Application.Users.Queries.Models;
+using Authorize.Application.Features.Users.Queries.Get.Models;
+using Authorize.Application.Features.Users.Queries.Models;
 using Authorize.Application.UT.Common;
 using FluentAssertions;
 using FluentValidation;

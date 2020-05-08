@@ -7,7 +7,7 @@ namespace Authorize.Application.Attributtes
     public class AuthorizeAttribute : Attribute
     {
         public string Permission { get; private set; }
-        public Authorize(string permision)
+        public AuthorizeAttribute(string permision)
         {
             Permission = permision;
         }

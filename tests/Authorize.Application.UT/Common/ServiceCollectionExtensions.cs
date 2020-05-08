@@ -15,7 +15,7 @@ namespace Authorize.Application.UT.Common
 {
     internal class Constants
     {
-        public const string App = "Authorize.application";
+        public const string App = "authorize.application";
         public const string UserAdmin = "admin";
         public const string UserGuest = "guest";
         public const string RoleAdmin = "admin";

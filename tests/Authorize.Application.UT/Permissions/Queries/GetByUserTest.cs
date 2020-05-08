@@ -1,5 +1,4 @@
-﻿using Authorize.Application.Permisions.Common.Models;
-using Authorize.Application.UT.Common;
+﻿using Authorize.Application.UT.Common;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
-using Authorize.Application.Permisions.Queries.GetByUser.Models;
 using FluentValidation;
 using FluentAssertions;
 using Authorize.Application.Exceptions;
@@ -15,6 +13,8 @@ using Authorize.Application.UT.Permissions.DataProvaiders;
 using Microsoft.EntityFrameworkCore;
 using Authorize.Domain.Users;
 using System.Linq;
+using Authorize.Application.Features.Permisions.Common.Models;
+using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
 
 namespace Authorize.Application.UT.Permissions.Queries
 {

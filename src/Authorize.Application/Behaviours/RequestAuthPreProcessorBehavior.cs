@@ -1,7 +1,7 @@
 ﻿using Authorize.Application.Attributtes;
 using Authorize.Application.Contracts;
 using Authorize.Application.Exceptions;
-using Authorize.Application.Permisions.Queries.GetByUser.Models;
+using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
 using MediatR;
 using MediatR.Pipeline;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace Authorize.Application.Behaviours
         {
             var authorizeAttrs = request.GetType()
                 .GetCustomAttributes(true)
-                .OfType<Authorize>();
+                .OfType<AuthorizeAttribute>();
             if (authorizeAttrs == null || !authorizeAttrs.Any())
             {
                 return;
