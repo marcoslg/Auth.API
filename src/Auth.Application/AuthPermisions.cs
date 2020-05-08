@@ -24,6 +24,16 @@ namespace Auth.Application
         public const string UserGet = "user.get";
         public const string UserSearch = "user.searchrole";
         #endregion users
+
+        #region applications
+        public const string ApplicationCreated = "application.created";
+        public const string ApplicationDisabled = "application.disabled";
+        public const string ApplicationEnabled = "application.enabled";
+        public const string ApplicationGet = "application.get";
+        public const string ApplicationSearch = "application.searchrole";
+        #endregion applications
+
+
         public IEnumerable<Permision> Permissions { get; private set; }
 
         public AuthPermisions()
@@ -45,6 +55,14 @@ namespace Auth.Application
                 Permision.For(UserGet),
                 Permision.For(UserSearch),
                 #endregion users
+
+                #region applications
+                Permision.For(ApplicationCreated),
+                Permision.For(ApplicationDisabled),
+                Permision.For(ApplicationEnabled),
+                Permision.For(ApplicationGet),
+                Permision.For(ApplicationSearch),
+                #endregion applications
             };
         }
     }

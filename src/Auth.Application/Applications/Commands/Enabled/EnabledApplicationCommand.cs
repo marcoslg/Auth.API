@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Auth.Application.Applications.Commands.Enabled
 {
-    [Authorize(AuthPermisions.RoleEnabled)]
+    [Authorize(AuthPermisions.ApplicationEnabled)]
     public class EnabledApplicationCommand : IRequest
     {
         public string Name { get; set; }

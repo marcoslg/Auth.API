@@ -1,6 +1,5 @@
 ﻿using Auth.Application.Contracts;
 using Auth.Application.Exceptions;
-using Auth.Domain.Roles;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -19,11 +18,11 @@ namespace Auth.Application.Applications.Commands.Enabled
         }
         public async Task<Unit> Handle(EnabledApplicationCommand command, CancellationToken cancellationToken)
         {
-            var entity = await _context.Roles
-                 .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);
+            var entity = await _context.Applications
+                 .FirstOrDefaultAsync(ap => ap.Name == command.Name, cancellationToken);
             if (entity == null)
             {
-                throw new NotFoundException(nameof(Role), command.Name);
+                throw new NotFoundException(nameof(Domain.Applications.Application), command.Name);
             }
             cancellationToken.ThrowIfCancellationRequested();
             entity.IsEnabled = true;

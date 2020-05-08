@@ -1,9 +1,9 @@
 ﻿using Auth.Application.Attributtes;
 using MediatR;
 
-namespace Auth.Application.Applications.Commands.Delete
+namespace Auth.Application.Applications.Commands.Disabled
 {
-    [Authorize(AuthPermisions.RoleDisabled)]
+    [Authorize(AuthPermisions.ApplicationDisabled)]
     public class DisabledApplicationCommand : IRequest
     {
         public string Name { get; set; }

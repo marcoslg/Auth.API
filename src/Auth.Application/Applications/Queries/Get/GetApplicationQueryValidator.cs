@@ -1,10 +1,10 @@
-﻿using Auth.Application.Roles.Queries.Get.Models;
+﻿using Auth.Application.Applications.Queries.Get.Models;
 using FluentValidation;
 using FluentValidation.Results;
 
 namespace Auth.Application.Applications.Queries.Get
 {
-    public class GetApplicationQueryValidator : AbstractValidator<GetRoleQuery>
+    public class GetApplicationQueryValidator : AbstractValidator<GetApplicationQuery>
     {
         public GetApplicationQueryValidator()
         {
@@ -13,7 +13,7 @@ namespace Auth.Application.Applications.Queries.Get
                 .NotEmpty()
                 .MaximumLength(200);
         }
-        public override ValidationResult Validate(ValidationContext<GetRoleQuery> context)
+        public override ValidationResult Validate(ValidationContext<GetApplicationQuery> context)
         {
             var validate = base.Validate(context);
             if (validate.IsValid)

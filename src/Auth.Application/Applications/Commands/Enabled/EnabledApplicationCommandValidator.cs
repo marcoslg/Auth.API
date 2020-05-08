@@ -3,9 +3,9 @@ using FluentValidation.Results;
 
 namespace Auth.Application.Applications.Commands.Enabled
 {
-    public class EnabledRoleCommandValidator : AbstractValidator<EnabledApplicationCommand>
+    public class EnabledApplicationCommandValidator : AbstractValidator<EnabledApplicationCommand>
     {
-        public EnabledRoleCommandValidator()
+        public EnabledApplicationCommandValidator()
         {
             RuleFor(v => v.Name)                
                 .NotNull()

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace Auth.Application.Applications.Commands.Delete
+namespace Auth.Application.Applications.Commands.Disabled
 {
     public class DisabledApplicationCommandValidator : AbstractValidator<DisabledApplicationCommand>
     {

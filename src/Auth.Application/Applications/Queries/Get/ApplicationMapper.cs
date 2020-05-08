@@ -1,27 +1,19 @@
-﻿using Auth.Application.Roles.Queries.Get.Models;
-using Auth.Application.Roles.Queries.Models;
-using Auth.Domain.Roles;
-using System;
+﻿using Auth.Application.Applications.Queries.Get.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Auth.Application.Applications.Queries.Get
 {
     internal static class ApplicationMapper
     {
-        public static RolePermisionsVM ToMap(this Role role)
+        public static ApplicationPermisionsVM ToMap(this Domain.Applications.Application application)
         {
             var permisions = new Dictionary<string, IEnumerable<string>>();
-            foreach(var appPer in role.Applications)
-            {
-                permisions.Add(appPer.Application.Name, appPer.Permisions.Select(p => p.Name));
-            }
-            return new RolePermisionsVM(role.Name, role.Description, role.IsEnabled, permisions);
-        }
-        
+            permisions.Add(application.Name, application.Permisions.Select(p => p.Name));
+            return new ApplicationPermisionsVM(application.Name, application.Description, application.IsEnabled, permisions);
+        }        
 
-        public static IQueryable<RolePermisionsVM> ToMap(this IQueryable<Role> roleQuery)
-       => roleQuery.Select(x => x.ToMap());
+        public static IQueryable<ApplicationPermisionsVM> ToMap(this IQueryable<Domain.Applications.Application> applicationQuery)
+            => applicationQuery.Select(x => x.ToMap());
     }
 }

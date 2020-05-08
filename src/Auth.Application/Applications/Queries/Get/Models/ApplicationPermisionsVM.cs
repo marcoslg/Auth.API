@@ -1,9 +1,9 @@
-﻿using Auth.Application.Roles.Queries.Models;
+﻿using Auth.Application.Applications.Queries.Models;
 using System.Collections.Generic;
 
 namespace Auth.Application.Applications.Queries.Get.Models
 {
-    public class ApplicationPermisionsVM : RoleVM
+    public class ApplicationPermisionsVM : ApplicationVM
     {
         public ApplicationPermisionsVM(string name, string description, bool isEnabled, IDictionary<string, IEnumerable<string>> permisions)
             : base(name, description, isEnabled)
@@ -12,7 +12,6 @@ namespace Auth.Application.Applications.Queries.Get.Models
         }
 
         public IDictionary<string, IEnumerable<string>> Permisions { get; set; }
-
 
     }
 }

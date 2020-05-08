@@ -1,12 +1,11 @@
 ﻿using Auth.Application.Contracts;
 using Auth.Application.Exceptions;
-using Auth.Domain.Roles;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Auth.Application.Applications.Commands.Delete
+namespace Auth.Application.Applications.Commands.Disabled
 {
     public class DisabledApplicationCommandHandler : IRequestHandler<DisabledApplicationCommand>
     {
@@ -19,11 +18,11 @@ namespace Auth.Application.Applications.Commands.Delete
         }
         public async Task<Unit> Handle(DisabledApplicationCommand command, CancellationToken cancellationToken)
         {
-            var entity = await _context.Roles                  
-                 .FirstOrDefaultAsync(r => r.Name == command.Name, cancellationToken);
+            var entity = await _context.Applications                  
+                 .FirstOrDefaultAsync(ap => ap.Name == command.Name, cancellationToken);
             if (entity == null)
             {
-                throw new NotFoundException(nameof(Role), command.Name);
+                throw new NotFoundException(nameof(Domain.Applications.Application), command.Name);
             }            
             cancellationToken.ThrowIfCancellationRequested();
             entity.IsEnabled = false;
