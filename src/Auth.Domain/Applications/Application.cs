@@ -1,5 +1,4 @@
-﻿using Auth.Domain;
-using Auth.Domain.Common;
+﻿using Auth.Domain.Common;
 using System.Collections.Generic;
 
 namespace Auth.Domain.Applications
