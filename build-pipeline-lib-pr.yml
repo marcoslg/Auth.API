@@ -66,7 +66,7 @@ stages:
          **\*UnitTest*.csproj
          **\*.UT.csproj
          **\*.IT.csproj
-        arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet'
+        arguments: '-c $(BuildConfiguration) /p:CollectCoverage=True --collect:"XPlat Code Coverage" /p:CoverletOutput=$(Build.SourcesDirectory)\reports\coverlet'
         nobuild: true
         publishTestResults: --logger trx --results-directory $(Build.SourcesDirectory)\reports
     
@@ -78,14 +78,14 @@ stages:
         arguments: install dotnet-reportgenerator-globaltool --tool-path . --ignore-failed-sources
       displayName: Install ReportGenerator tool
       
-    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\reports\**\coverlet.json -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:Cobertura;Badges'
+    - script: 'reportgenerator -reports:$(Build.SourcesDirectory)\**\coverlet.cobertura.xml -targetdir:$(Build.SourcesDirectory)\reports\coverlet -reporttypes:Cobertura;Badges'
       displayName: Create reports
     
     - task: PublishCodeCoverageResults@1
       displayName: 'Publish code coverage'
       inputs:
         codeCoverageTool: Cobertura
-        summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet.json
+        summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet\cobertura.xml
         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
     
 - stage: Nuget_Prerelease
