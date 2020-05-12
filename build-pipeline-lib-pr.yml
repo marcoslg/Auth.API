@@ -104,6 +104,7 @@ stages:
         buildProperties: 'VersionSuffix=rc$(Build.BuildId)'
 
     - publish: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
+      condition: and(succeeded(), eq(variables['BuildConfiguration'], 'debug'))
       artifact: nugets-$(BuildConfiguration)
 
     
