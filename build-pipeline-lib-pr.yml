@@ -22,6 +22,7 @@ stages:
     variables:
       solution: '**/*.sln'
       buildPlatform: 'Any CPU'
+      NugetProject: '**/Authorize.Application.csproj'
        
     steps:
      # Nuget Installer
@@ -89,6 +90,8 @@ stages:
         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
     
 - stage: Nuget_Prerelease
+  variables:            
+    NugetProject: '**/Authorize.Application.csproj'
   jobs:
   - deployment: Prerelease
     pool: 'Default'
@@ -99,11 +102,26 @@ stages:
       runOnce:
         deploy:
           steps:
+          
+          # Nuget pack prerelease
+          - task: DotNetCoreCLI@2
+              displayName: 'dotnet pack prerelease'
+              condition: and(succeeded(),  ne(variables['NugetProject'], ''))
+              inputs:
+              command: 'pack'
+              packagesToPack: '$(NugetProject)'
+              packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
+              nobuild: true
+              includesymbols: true
+              includesource: true
+              versioningScheme: 'off'
+              buildProperties: 'VersionSuffix=rc$(RCNumber)'
           # Nuget push prerelease
           - task: NuGetCommand@2
             displayName: 'NuGet push'
             inputs:
               command: 'push'
+              projects:
               packagesToPush: '$(Pipeline.Workspace)/nugets-debug/*symbols.nupkg'
               nuGetFeedType: 'internal'
               publishVstsFeed: 'marcoslg-nugets'
