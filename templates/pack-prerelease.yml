@@ -1,0 +1,48 @@
+#file : pack-prerelease.yml
+
+parameters:
+    - name: RCNumber
+      type: number
+variables:            
+  NugetProject: '**/Authorize.Application.csproj'
+
+- stage: Nuget_Prerelease
+  parameters:
+    - name: RCNumber
+      type: number
+  variables:            
+    NugetProject: '**/Authorize.Application.csproj'
+  jobs:
+  - deployment: Prerelease
+    pool: 'Default'
+    workspace:
+      clean: all
+    environment: 'Prerelease'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          
+          # Nuget pack prerelease
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet pack prerelease'
+            condition: and(succeeded(),  ne(variables['NugetProject'], ''))
+            inputs:
+              command: 'pack'
+              packagesToPack: '$(NugetProject)'
+              packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
+              nobuild: true
+              includesymbols: true
+              includesource: true
+              versioningScheme: 'off'
+              buildProperties: 'VersionSuffix=rc${{ parameters.RCNumber }}'
+          # Nuget push prerelease
+          - task: NuGetCommand@2
+            displayName: 'NuGet push'
+            inputs:
+              command: 'push'
+              projects:
+              packagesToPush: '$(Pipeline.Workspace)/nugets-debug/*symbols.nupkg'
+              nuGetFeedType: 'internal'
+              publishVstsFeed: 'marcoslg-nugets'
+              allowPackageConflicts: true 
