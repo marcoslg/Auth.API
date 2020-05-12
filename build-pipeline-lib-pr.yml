@@ -1,8 +1,6 @@
 # Build PR
 # Version 1.0.0
-parameters:
-- name: RCNumber
-  type: int
+
 
 trigger: none
 
@@ -94,6 +92,9 @@ stages:
         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
     
 - stage: Nuget_Prerelease
+  parameters:
+    - name: RCNumber
+      type: number
   variables:            
     NugetProject: '**/Authorize.Application.csproj'
   jobs:
