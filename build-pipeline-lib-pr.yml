@@ -133,7 +133,8 @@ stages:
               packagesToPush: '$(Pipeline.Workspace)/nugets-debug/*symbols.nupkg'
               nuGetFeedType: 'internal'
               publishVstsFeed: 'marcoslg-nugets'
-              allowPackageConflicts: true 
+              allowPackageConflicts: true
+              
 
 #- task: PublishCodeCoverageResults@1
 #  displayName: 'Publish code coverage'
