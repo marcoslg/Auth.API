@@ -4,8 +4,7 @@
 
 trigger: none
 
-stages:
-    RCNumber
+stages:    
 - stage: Build
   jobs: 
   - job: Build 
