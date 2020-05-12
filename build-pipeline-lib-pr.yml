@@ -132,7 +132,7 @@ stages:
               projects:
               packagesToPush: '$(Pipeline.Workspace)/nugets-debug/*symbols.nupkg'
               nuGetFeedType: 'internal'
-              publishVstsFeed: 'marcoslg-nugets'
+              publishVstsFeed: 'Authorization.API/marcoslg-nugets'
               allowPackageConflicts: true
               
 
