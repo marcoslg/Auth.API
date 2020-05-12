@@ -1,9 +1,13 @@
 # Build PR
 # Version 1.0.0
+parameters:
+- name: RCNumber
+  type: int
 
 trigger: none
 
 stages:
+    RCNumber
 - stage: Build
   jobs: 
   - job: Build 
@@ -115,7 +119,7 @@ stages:
               includesymbols: true
               includesource: true
               versioningScheme: 'off'
-              buildProperties: 'VersionSuffix=rc$(RCNumber)'
+              buildProperties: 'VersionSuffix=rc${{ parameters.RCNumber }}'
           # Nuget push prerelease
           - task: NuGetCommand@2
             displayName: 'NuGet push'
