@@ -3,6 +3,7 @@
 parameters:
     - name: RCNumber
       type: number
+      default: $(Build.BuildId)
 
 
 
