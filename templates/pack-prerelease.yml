@@ -21,8 +21,8 @@ stages:
             inputs:
               command: 'pack'
               packagesToPack: '$(NugetProject)'
-              packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
-              nobuild: true
+              arguments: -c debug
+              packDirectory: '$(System.DefaultWorkingDirectory)/nugets-debug'
               includesymbols: true
               includesource: true
               versioningScheme: 'off'
