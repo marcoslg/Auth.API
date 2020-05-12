@@ -101,13 +101,11 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:
-          
+          steps:          
           # Nuget pack prerelease
           - task: DotNetCoreCLI@2
-              displayName: 'dotnet pack prerelease'
-              condition: and(succeeded(),  ne(variables['NugetProject'], ''))
-              inputs:
+            displayName: 'dotnet pack prerelease'
+            inputs:
               command: 'pack'
               packagesToPack: '$(NugetProject)'
               packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
