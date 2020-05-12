@@ -1,12 +1,4 @@
 #file : pack-prerelease.yml
-
-parameters:
-    - name: RCNumber
-      type: number
-      default: $(Build.BuildId)
-
-
-
 stages:
 - stage: Nuget_Prerelease  
   jobs:    
@@ -34,7 +26,7 @@ stages:
               includesymbols: true
               includesource: true
               versioningScheme: 'off'
-              buildProperties: 'VersionSuffix=rc${{ parameters.RCNumber }}'
+              buildProperties: 'VersionSuffix=rc$(Build.BuildId)'
           # Nuget push prerelease
           - task: NuGetCommand@2
             displayName: 'NuGet push'
