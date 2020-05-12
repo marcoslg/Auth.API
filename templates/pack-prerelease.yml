@@ -9,8 +9,8 @@ parameters:
 stages:
 - stage: Nuget_Prerelease  
   jobs:
-  variables:            
-    NugetProject: '**/Authorize.Application.csproj'
+    variables:            
+        NugetProject: '**/Authorize.Application.csproj'
   - deployment: Prerelease
     pool: 'Default'
     workspace:
