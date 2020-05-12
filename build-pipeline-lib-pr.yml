@@ -88,6 +88,24 @@ stages:
         codeCoverageTool: Cobertura
         summaryFileLocation: $(Build.SourcesDirectory)\reports\coverlet\cobertura.xml
         reportDirectory: $(Build.SourcesDirectory)\reports\coverlet
+
+    # Nuget pack prerelease
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack prerelease'
+      condition: and(succeeded(), eq(variables['BuildConfiguration'], 'debug'))
+      inputs:
+        command: 'pack'
+        arguments: -c $(BuildConfiguration)
+        packagesToPack: '$(NugetProject)'
+        packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'        
+        includesymbols: true
+        includesource: true
+        versioningScheme: 'off'
+        buildProperties: 'VersionSuffix=rc$(Build.BuildId)'
+
+    - publish: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
+      artifact: nugets-$(BuildConfiguration)
+
     
 - stage: Nuget_Prerelease
   variables:            
@@ -101,19 +119,7 @@ stages:
     strategy:
       runOnce:
         deploy:
-          steps:          
-          # Nuget pack prerelease
-          - task: DotNetCoreCLI@2
-            displayName: 'dotnet pack prerelease'
-            inputs:
-              command: 'pack'
-              packagesToPack: '$(NugetProject)'
-              packDirectory: '$(System.DefaultWorkingDirectory)/Nuget/$(BuildConfiguration)'
-              nobuild: true
-              includesymbols: true
-              includesource: true
-              versioningScheme: 'off'
-              buildProperties: 'VersionSuffix=rc$(Build.BuildId)'
+          steps:
           # Nuget push prerelease
           - task: NuGetCommand@2
             displayName: 'NuGet push'
