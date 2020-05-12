@@ -4,12 +4,13 @@ parameters:
     - name: RCNumber
       type: number
 
-variables:            
-    NugetProject: '**/Authorize.Application.csproj'
+
 
 stages:
 - stage: Nuget_Prerelease  
   jobs:
+  variables:            
+    NugetProject: '**/Authorize.Application.csproj'
   - deployment: Prerelease
     pool: 'Default'
     workspace:
