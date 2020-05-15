@@ -27,5 +27,9 @@ namespace Authorize.Domain
             yield return Minor;
             yield return Minus;
         }
+        public override string ToString()
+        {
+            return $"{Major}.{Minor}.{Minus}";
+        }
     }
 }
