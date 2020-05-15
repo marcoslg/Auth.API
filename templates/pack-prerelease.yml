@@ -1,0 +1,39 @@
+#file : pack-prerelease.yml
+stages:
+- stage: Nuget_Prerelease  
+  jobs:    
+  - deployment: Prerelease
+    variables:            
+        NugetProject: '**/Authorize.Application.csproj'
+    pool: 'Default'
+    workspace:
+      clean: all
+    environment: 'Prerelease'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          
+          # Nuget pack prerelease
+          - task: DotNetCoreCLI@2
+            displayName: 'dotnet pack prerelease'
+            condition: and(succeeded(),  ne(variables['NugetProject'], ''))
+            inputs:
+              command: 'pack'
+              packagesToPack: '$(NugetProject)'
+              arguments: -c debug
+              packDirectory: '$(System.DefaultWorkingDirectory)/nugets-debug'
+              includesymbols: true
+              includesource: true
+              versioningScheme: 'off'
+              buildProperties: 'VersionSuffix=rc$(Build.BuildId)'
+          # Nuget push prerelease
+          - task: NuGetCommand@2
+            displayName: 'NuGet push'
+            inputs:
+              command: 'push'
+              projects:
+              packagesToPush: '$(Pipeline.Workspace)/nugets-debug/*symbols.nupkg'
+              nuGetFeedType: 'internal'
+              publishVstsFeed: 'marcoslg-nugets'
+              allowPackageConflicts: true 
