@@ -5,7 +5,6 @@ using Authorize.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using System.Data;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
