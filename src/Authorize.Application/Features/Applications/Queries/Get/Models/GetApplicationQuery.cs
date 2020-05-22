@@ -7,5 +7,14 @@ namespace Authorize.Application.Features.Applications.Queries.Get.Models
     public class GetApplicationQuery : IRequest<ApplicationPermisionsVM>
     {
         public string Name { get; set; }
+
+        public GetApplicationQuery()
+        {
+
+        }
+        public GetApplicationQuery(string applicationName)
+        {
+            Name = applicationName;
+        }
     }
 }
