@@ -25,8 +25,8 @@ namespace Authorize.API.Controllers.Applications.Queries
             var response = await Query(new GetApplicationQuery(applicationName));
             return response;
         }
-        [HttpGet("{applicationName}/searchrole")]
-        public async Task<IEnumerable<ApplicationVM>> SearchRole(string applicationName, int? page, int? pageSize)
+        [HttpGet("Search/{applicationName}")]
+        public async Task<IEnumerable<ApplicationVM>> SearchApplication(string applicationName, int? page, int? pageSize)
         {
             var response = await Query(new SearchApplicationsQuery()
             { 
