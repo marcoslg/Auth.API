@@ -12,9 +12,7 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Applications
             builder.HasKey(a => a.Name);
             builder.Property(a => a.Description)
                 .HasMaxLength(200);
-
-            builder.HasMany(a => a.Permisions);
-
+            
             var converter = new ValueConverter<Version, string>(
                     v => v.ToString(),
                     v => Version.For(v));

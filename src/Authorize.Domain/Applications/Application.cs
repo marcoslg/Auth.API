@@ -16,6 +16,8 @@ namespace Authorize.Domain.Applications
         public Version Version { get; set; }
         public ICollection<Permision> Permisions { get; set; }
 
+        public Application()
+        { }
         public Application(string name)
         {
             Name = name;

@@ -1,13 +1,16 @@
 ﻿using Authorize.API.Bases;
 using Authorize.Application.Features.Applications.Queries.Get.Models;
+using Authorize.Application.Features.Applications.Queries.Models;
+using Authorize.Application.Features.Applications.Queries.SearchRole.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Authorize.API.Controllers.Applications.Queries
 {
     [ApiController]
-    [Route("queries/applications")]
+    [Route("api/queries/applications")]
     public class Applications : QueriesController
     {        
         public Applications(IMediator mediator)
@@ -16,10 +19,22 @@ namespace Authorize.API.Controllers.Applications.Queries
             
         }
 
-        [HttpGet]        
+        [HttpGet("{applicationName}")]        
         public async Task<ApplicationPermisionsVM> Get(string applicationName)
         {
             var response = await Query(new GetApplicationQuery(applicationName));
+            return response;
+        }
+        [HttpGet("{applicationName}/searchrole")]
+        public async Task<IEnumerable<ApplicationVM>> SearchRole(string applicationName, int? page, int? pageSize)
+        {
+            var response = await Query(new SearchApplicationsQuery()
+            { 
+                Name = applicationName,
+                Page = page,
+                PageSize = pageSize
+
+            });
             return response;
         }
     }

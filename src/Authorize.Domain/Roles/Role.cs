@@ -1,4 +1,5 @@
 ﻿using Authorize.Domain.Common;
+using Authorize.Domain.Relations;
 using Authorize.Domain.Users;
 using System.Collections.Generic;
 
@@ -13,8 +14,10 @@ namespace Authorize.Domain.Roles
             private set => _name = value?.ToLowerInvariant();
         }
         public string Description { get; set; }
-        public ICollection<ApplicationRole> Applications { get; set; }        
+        public ICollection<ApplicationRole> Applications { get; set; }
 
+        public Role()
+        { }
         public Role(string roleName)
             : this(roleName, string.Empty)
         {
@@ -26,11 +29,10 @@ namespace Authorize.Domain.Roles
             Description = description;
             Applications = applications ?? new List<ApplicationRole>();
             IsEnabled = true;
-            Users = new List<User>();
+            Users = new List<UserRole>();
         }
 
-        public IEnumerable<User> Users { get; set; }
-
+        public ICollection<UserRole> Users { get; set; }
 
     }  
 }

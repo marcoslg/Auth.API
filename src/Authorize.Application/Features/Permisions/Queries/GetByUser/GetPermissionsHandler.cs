@@ -36,8 +36,10 @@ namespace Authorize.Application.Features.Permisions.Queries.GetByUser
                 throw new DisabledException(nameof(user), username);
             }
 
+            var tmp = _context.Roles.Include(r => r.Users)
+                .Include(r => r.Applications).ToList();
             var roles = await _context.Roles.AsNoTracking()
-                .Where(r => r.IsEnabled && r.Users.Any(u => u.UserName == user.UserName)
+                .Where(r => r.IsEnabled && r.Users.Any(u => u.User.UserName == user.UserName)
                    && r.Applications.Any(a => a.Application.Name == request.ApplicationName && a.Application.IsEnabled))
                 .Include(r => r.Applications)
                     .ThenInclude(a => a.Permisions)

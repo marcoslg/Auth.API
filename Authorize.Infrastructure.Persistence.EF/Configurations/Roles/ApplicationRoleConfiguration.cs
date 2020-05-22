@@ -7,7 +7,15 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Roles
     {
         public void Configure(EntityTypeBuilder<Domain.Roles.ApplicationRole> builder)
         {
-            builder.OwnsMany(a => a.Permisions);
+            builder.Property<string>("RoleName");
+            builder.Property<string>("AppName");
+
+            builder.HasKey("RoleName", "AppName");
+            builder.HasOne(ar => ar.Application)
+                .WithMany()
+                .HasForeignKey("AppName");
+
+            builder.OwnsMany(a => a.Permisions).ToTable("RolePermisions");
         }
     }
 }

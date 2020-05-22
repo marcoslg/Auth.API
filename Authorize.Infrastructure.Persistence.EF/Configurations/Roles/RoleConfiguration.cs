@@ -14,8 +14,12 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Roles
             builder.Property(a => a.Description)
                 .HasMaxLength(200);
 
-            builder.HasMany(r => r.Applications);
+            builder.HasMany(r => r.Applications)
+                .WithOne()
+                .HasForeignKey("RoleName");
+
             builder.HasMany(r => r.Users);
         }
     }
+
 }

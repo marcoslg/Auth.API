@@ -1,4 +1,5 @@
 ﻿using Authorize.Domain.Common;
+using Authorize.Domain.Relations;
 using Authorize.Domain.Roles;
 using System.Collections.Generic;
 
@@ -12,7 +13,10 @@ namespace Authorize.Domain.Users
             get => _userName;
             private set => _userName = value?.ToLowerInvariant();
         }
+        public User()
+        {
 
+        }
         public User(string username)
           : this (username, null)
         {
@@ -21,9 +25,27 @@ namespace Authorize.Domain.Users
         public User(string username, ICollection<Role> roles)
         {
             UserName = username;
-            Roles = roles ?? new List<Role>();
+
+            Roles = Build(roles) ?? new List<UserRole>();
         }
 
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<UserRole> Roles { get; set; }
+
+        private ICollection<UserRole> Build(ICollection<Role> roles)
+        {
+            ICollection<UserRole> result = new List<UserRole>();
+            if (roles != null)
+            {
+                foreach(var role in roles)
+                {
+                    result.Add(new UserRole()
+                    {
+                        User = this,
+                        Role = role
+                    }); ;
+                }
+            }
+            return result;
+        }
     }
 }

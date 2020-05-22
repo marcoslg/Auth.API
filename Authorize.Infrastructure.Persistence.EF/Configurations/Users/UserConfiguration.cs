@@ -8,7 +8,7 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Users
         public void Configure(EntityTypeBuilder<Domain.Users.User> builder)
         {
             builder.HasKey(a => a.UserName);
-            builder.HasMany(r => r.Roles);
+            builder.HasMany(a => a.Roles);
         }
     }
 }
