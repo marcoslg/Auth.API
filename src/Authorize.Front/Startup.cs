@@ -1,3 +1,7 @@
+using Authorize.Application;
+using Authorize.Application.Contracts;
+using Authorize.Front.Services;
+using Authorize.Infrastructure.Persistence.EF;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,12 +24,39 @@ namespace Authorize.Front
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddInfrastructurePersitence(Configuration);
+
+            services.AddAuthorizeApplication();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddHttpContextAccessor();
+
+
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
+            services.AddOpenApiDocument(configure =>
+            {
+                configure.Title = "Authorize API";
+                //configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                //{
+                //    Type = OpenApiSecuritySchemeType.ApiKey,
+                //    Name = "Authorization",
+                //    In = OpenApiSecurityApiKeyLocation.Header,
+                //    Description = "Type into the textbox: Bearer {your JWT token}."
+                //});
+
+                //configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            });
+
+            // Register the Swagger services
+           // services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +65,7 @@ namespace Authorize.Front
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                SeedData.EnsureSeedData(app).GetAwaiter().GetResult();
             }
             else
             {
@@ -50,6 +82,9 @@ namespace Authorize.Front
             }
 
             app.UseRouting();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {
