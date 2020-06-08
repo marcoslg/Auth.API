@@ -29,7 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 -Backend", "2 -Backend", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 -Frontend", "1 -Frontend", "{C6E4F2E4-10A7-4C54-8926-77A95915E04F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorize.Front", "src\Authorize.Front\Authorize.Front.csproj", "{7C40FE80-9812-4356-98BF-602BC9BEF57F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorize.Front", "src\Authorize.Front\Authorize.Front.csproj", "{7C40FE80-9812-4356-98BF-602BC9BEF57F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authorize.API.REST", "src\Authorize.API.REST\Authorize.API.REST.csproj", "{4A5098AE-639F-4622-AFF3-7ED30CE544FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{7C40FE80-9812-4356-98BF-602BC9BEF57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C40FE80-9812-4356-98BF-602BC9BEF57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C40FE80-9812-4356-98BF-602BC9BEF57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5098AE-639F-4622-AFF3-7ED30CE544FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5098AE-639F-4622-AFF3-7ED30CE544FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5098AE-639F-4622-AFF3-7ED30CE544FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5098AE-639F-4622-AFF3-7ED30CE544FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{A8C64634-6C5C-479F-A447-6EB5D0139DC3} = {7BB40C2A-B359-4901-8981-9F56DC9325D4}
 		{C6E4F2E4-10A7-4C54-8926-77A95915E04F} = {7BB40C2A-B359-4901-8981-9F56DC9325D4}
 		{7C40FE80-9812-4356-98BF-602BC9BEF57F} = {C6E4F2E4-10A7-4C54-8926-77A95915E04F}
+		{4A5098AE-639F-4622-AFF3-7ED30CE544FC} = {C6E4F2E4-10A7-4C54-8926-77A95915E04F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {611EF86C-619C-42D2-A508-EF8BDCEC0441}
