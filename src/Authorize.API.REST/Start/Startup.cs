@@ -1,3 +1,4 @@
+using Authorize.API.REST.Filters;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Contracts;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Extensions;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Services;
@@ -71,9 +72,9 @@ namespace Authorize.API.REST.Start
 
 
             services.AddHttpContextAccessor();
-            services.AddControllers();
-
-
+                       
+            services.AddControllers(options =>
+                options.Filters.Add(new ApiExceptionFilter()));
 
 
             services.AddOpenApiDocument(configure =>
