@@ -1,4 +1,4 @@
-﻿using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
+﻿using Authorize.Application.Features.Permissions.Queries.GetByUser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

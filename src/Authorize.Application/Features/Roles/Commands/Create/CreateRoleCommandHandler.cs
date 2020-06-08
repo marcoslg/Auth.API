@@ -25,7 +25,7 @@ namespace Authorize.Application.Features.Roles.Commands.Create
             {
                 throw new ExistsException(nameof(Role), command.Name);
             }
-            await new PermissionsExistsValidator(_context.Applications, command.Permisions, cancellationToken)
+            await new PermissionsExistsValidator(_context.Applications, command.Permissions, cancellationToken)
                 .ValidAsync();
             var role = command.ToMap();
             _context.Roles.Add(role);

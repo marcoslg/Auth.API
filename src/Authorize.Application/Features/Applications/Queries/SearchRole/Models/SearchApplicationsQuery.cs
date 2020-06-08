@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Authorize.Application.Features.Applications.Queries.SearchRole.Models
 {
-    [Authorize(AuthPermisions.ApplicationSearch)]
+    [Authorize(AuthPermissions.ApplicationSearch)]
     public class SearchApplicationsQuery : IRequest<IEnumerable<ApplicationVM>>
     {
         public string Name { get; set; }

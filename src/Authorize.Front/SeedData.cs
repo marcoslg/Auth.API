@@ -17,7 +17,7 @@ namespace Authorize.Front
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<AuthorizeDbContext>();
-                var authPermisions = serviceScope.ServiceProvider.GetRequiredService<IAuthPermisions>();
+                var authPermisions = serviceScope.ServiceProvider.GetRequiredService<IAuthPermissions>();
                 AuthorizeDbContextSeed.SeedDefaultAsync(dbContext, authPermisions);
                 await dbContext.SaveChangesAsync();
             }

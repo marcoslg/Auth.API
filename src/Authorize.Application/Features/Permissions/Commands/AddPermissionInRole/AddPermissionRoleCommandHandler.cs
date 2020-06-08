@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Authorize.Application.Features.Permisions.Commands.AddPermissionInRole
+namespace Authorize.Application.Features.Permissions.Commands.AddPermissionInRole
 {
     public class AddPermissionRoleCommandHandler : IRequestHandler<AddPermissionRoleCommand>
     {
@@ -35,7 +35,7 @@ namespace Authorize.Application.Features.Permisions.Commands.AddPermissionInRole
                 entity.Applications.Add(new ApplicationRole()
                 {
                     Application = new Domain.Applications.Application(app.Key),
-                    Permisions = app.Value.Select(p => Permision.For(p)).ToList()
+                    Permissions = app.Value.Select(p => Permission.For(p)).ToList()
                 });
             }
             cancellationToken.ThrowIfCancellationRequested();

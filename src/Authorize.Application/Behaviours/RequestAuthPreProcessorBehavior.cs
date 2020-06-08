@@ -1,7 +1,7 @@
 ﻿using Authorize.Application.Attributtes;
 using Authorize.Application.Contracts;
 using Authorize.Application.Exceptions;
-using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
+using Authorize.Application.Features.Permissions.Queries.GetByUser.Models;
 using MediatR;
 using MediatR.Pipeline;
 using System.Linq;

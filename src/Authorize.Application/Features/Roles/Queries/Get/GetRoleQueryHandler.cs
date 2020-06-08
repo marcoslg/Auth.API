@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Authorize.Application.Features.Roles.Queries.Get
 {
-    public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, RolePermisionsVM>
+    public class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, RolePermissionsVM>
     {
         private readonly IAppDbContext _context;
         public GetRoleQueryHandler(IAppDbContext context)
         {
             _context = context;
         }
-        public async Task<RolePermisionsVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
+        public async Task<RolePermissionsVM> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name;
             cancellationToken.ThrowIfCancellationRequested();
@@ -24,7 +24,7 @@ namespace Authorize.Application.Features.Roles.Queries.Get
                 .Include(r => r.Applications)
                     .ThenInclude(ar => ar.Application)
                 .Include(r => r.Applications)
-                    .ThenInclude(ar => ar.Permisions)
+                    .ThenInclude(ar => ar.Permissions)
                 .SingleOrDefaultAsync(r => r.Name == normalizedName, cancellationToken);
             if (role == null)
             {

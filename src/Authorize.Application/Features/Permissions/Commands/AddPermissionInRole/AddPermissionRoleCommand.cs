@@ -2,9 +2,9 @@
 using MediatR;
 using System.Collections.Generic;
 
-namespace Authorize.Application.Features.Permisions.Commands.AddPermissionInRole
+namespace Authorize.Application.Features.Permissions.Commands.AddPermissionInRole
 {
-    [Authorize(AuthPermisions.RoleCreated)]
+    [Authorize(AuthPermissions.RoleCreated)]
     public class AddPermissionRoleCommand : IRequest
     {
         public string RoleName { get; set; }

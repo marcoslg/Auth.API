@@ -1,8 +1,8 @@
-﻿using Authorize.Application.Features.Permisions.Common.Models;
+﻿using Authorize.Application.Features.Common.Models;
 using MediatR;
 using System.Collections.Generic;
 
-namespace Authorize.Application.Features.Permisions.Queries.GetByUser.Models
+namespace Authorize.Application.Features.Permissions.Queries.GetByUser.Models
 {
     public class GetPermissionsQuery : IRequest<IEnumerable<PermissionDto>>
     {

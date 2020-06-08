@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Authorize.Application.Features.Applications.Commands.Disabled
 {
-    [Authorize(AuthPermisions.ApplicationDisabled)]
+    [Authorize(AuthPermissions.ApplicationDisabled)]
     public class DisabledApplicationCommand : IRequest
     {
         public string Name { get; set; }

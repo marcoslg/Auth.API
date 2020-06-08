@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace Authorize.Application.Features.Permisions.Commands.AddPermissionInRole
+namespace Authorize.Application.Features.Permissions.Commands.AddPermissionInRole
 {
     public class AddPermissionRoleCommandValidator : AbstractValidator<AddPermissionRoleCommand>
     {

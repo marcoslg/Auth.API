@@ -7,18 +7,18 @@ namespace Authorize.Application.Features.Roles.Queries.Get
 {
     internal static class RoleMapper
     {
-        public static RolePermisionsVM ToMap(this Role role)
+        public static RolePermissionsVM ToMap(this Role role)
         {
-            var permisions = new Dictionary<string, IEnumerable<string>>();
+            var permissions = new Dictionary<string, IEnumerable<string>>();
             foreach (var appPer in role.Applications)
             {
-                permisions.Add(appPer.Application.Name, appPer.Permisions.Select(p => p.Name));
+                permissions.Add(appPer.Application.Name, appPer.Permissions.Select(p => p.Name));
             }
-            return new RolePermisionsVM(role.Name, role.Description, role.IsEnabled, permisions);
+            return new RolePermissionsVM(role.Name, role.Description, role.IsEnabled, permissions);
         }
 
 
-        public static IQueryable<RolePermisionsVM> ToMap(this IQueryable<Role> roleQuery)
+        public static IQueryable<RolePermissionsVM> ToMap(this IQueryable<Role> roleQuery)
             => roleQuery.Select(x => x.ToMap());
     }
 }

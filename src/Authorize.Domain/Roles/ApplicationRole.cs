@@ -8,6 +8,6 @@ namespace Authorize.Domain.Roles
     public class ApplicationRole
     {
         public Application Application { get; set; }
-        public ICollection<Permision> Permisions { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
     }
 }

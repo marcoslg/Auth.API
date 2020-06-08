@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Authorize.Application.Features.Users.Commands.Create
 {
-    [Authorize(AuthPermisions.UserCreated)]
+    [Authorize(AuthPermissions.UserCreated)]
     public class CreateUserCommand : IRequest<string>
     {
         public string UserName { get; set; }

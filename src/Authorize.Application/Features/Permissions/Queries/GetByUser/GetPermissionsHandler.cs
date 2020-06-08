@@ -1,8 +1,8 @@
 ﻿using Authorize.Application.Contracts;
 using Authorize.Application.Exceptions;
-using Authorize.Application.Features.Permisions.Common.Mappers;
-using Authorize.Application.Features.Permisions.Common.Models;
-using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
+using Authorize.Application.Features.Common.Mappers;
+using Authorize.Application.Features.Common.Models;
+using Authorize.Application.Features.Permissions.Queries.GetByUser.Models;
 using Authorize.Domain.Applications;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Authorize.Application.Features.Permisions.Queries.GetByUser
+namespace Authorize.Application.Features.Permissions.Queries.GetByUser
 {
     public class GetPermissionsHandler : IRequestHandler<GetPermissionsQuery, IEnumerable<PermissionDto>>
     {
@@ -42,13 +42,13 @@ namespace Authorize.Application.Features.Permisions.Queries.GetByUser
                 .Where(r => r.IsEnabled && r.Users.Any(u => u.User.UserName == user.UserName)
                    && r.Applications.Any(a => a.Application.Name == request.ApplicationName && a.Application.IsEnabled))
                 .Include(r => r.Applications)
-                    .ThenInclude(a => a.Permisions)
+                    .ThenInclude(a => a.Permissions)
                     .ToListAsync(cancellationToken);
 
-            var permisions = new HashSet<Permision>(
+            var permisions = new HashSet<Permission>(
                 roles
                 .SelectMany(r => r.Applications
-                    .SelectMany(a => a.Permisions)));
+                    .SelectMany(a => a.Permissions)));
             cancellationToken.ThrowIfCancellationRequested();
             var permisionDtos = permisions.Select(p => p.ToMap());
             return permisionDtos;

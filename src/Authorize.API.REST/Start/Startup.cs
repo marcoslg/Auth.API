@@ -1,7 +1,6 @@
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Contracts;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Extensions;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Services;
-using Authorize.API.REST.Options;
 using Authorize.API.REST.Services;
 using Authorize.Application;
 using Authorize.Application.Contracts;

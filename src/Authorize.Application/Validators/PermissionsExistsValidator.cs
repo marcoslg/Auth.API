@@ -14,12 +14,13 @@ namespace Authorize.Application.Validators
     {
         private readonly DbSet<Domain.Applications.Application> _applications;
         private readonly CancellationToken _cancellationToken;
-        private readonly Dictionary<string, IEnumerable<string>> _permisions;
-        public PermissionsExistsValidator(DbSet<Domain.Applications.Application> applications, Dictionary<string, IEnumerable<string>> permisions, CancellationToken cancellationToken)          
+        private readonly Dictionary<string, IEnumerable<string>> _permissions;
+        public PermissionsExistsValidator(DbSet<Domain.Applications.Application> applications,
+            Dictionary<string, IEnumerable<string>> permissions, CancellationToken cancellationToken)          
         {
             _applications = applications;
             _cancellationToken = cancellationToken;
-            _permisions = permisions;
+            _permissions = permissions;
         }
 
         public async Task ValidAsync()
@@ -27,12 +28,12 @@ namespace Authorize.Application.Validators
             var IsValid = await IsValidAsync();
             if (!IsValid)
             {
-                throw new ValidationException("Not matched permisions");
+                throw new ValidationException("Not matched permissions");
             }
         }
         protected async Task<bool> IsValidAsync()
         {
-            var applicationExistQuery = BuildExpresion(_permisions, _cancellationToken);
+            var applicationExistQuery = BuildExpresion(_permissions, _cancellationToken);
             if (applicationExistQuery == null)
             {
                 return true;
@@ -40,16 +41,20 @@ namespace Authorize.Application.Validators
             var numApp = await _applications.AsNoTracking()
                 .Where(applicationExistQuery)
                 .CountAsync(_cancellationToken);
-            return numApp == _permisions.Count();
+            return numApp == _permissions.Count();
         }
 
-        private Expression<Func<Domain.Applications.Application, bool>> BuildExpresion(Dictionary<string, IEnumerable<string>> permisions, CancellationToken cancellationToken)
+        private Expression<Func<Domain.Applications.Application, bool>> BuildExpresion(Dictionary<string,
+            IEnumerable<string>> permissions, CancellationToken cancellationToken)
         {
             Expression<Func<Domain.Applications.Application, bool>> whereExpresion = null;
-            foreach (var app in permisions)
+            foreach (var app in permissions)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                Expression<Func<Domain.Applications.Application, bool>> query = a => a.IsEnabled && a.Name == app.Key && app.Value.All(p => a.Permisions.Any(ap => ap.Name == p));
+                Expression<Func<Domain.Applications.Application, bool>> query = 
+                                    a => a.IsEnabled &&
+                                    a.Name == app.Key &&
+                                    app.Value.All(p => a.Permissions.Any(ap => ap.Name == p));
                 if (whereExpresion != null)
                 {
                     whereExpresion.Or(query);

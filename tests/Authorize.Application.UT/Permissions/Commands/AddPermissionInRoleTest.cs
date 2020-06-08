@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using FluentValidation;
 using Authorize.Application.Exceptions;
 using Authorize.Application.UT.Permissions.DataProvaiders;
-using Authorize.Application.Features.Permisions.Commands.AddPermissionInRole;
+using Authorize.Application.Features.Permissions.Commands.AddPermissionInRole;
 
 namespace Authorize.Application.UT.Permissions.Commands
 {
@@ -71,10 +71,10 @@ namespace Authorize.Application.UT.Permissions.Commands
 
                            {Constants.App, new List<string>()
                                 {
-                                    AuthPermisions.RoleGet,
-                                    AuthPermisions.RoleSearch,
-                                    AuthPermisions.UserGet,
-                                    AuthPermisions.UserSearch
+                                    AuthPermissions.RoleGet,
+                                    AuthPermissions.RoleSearch,
+                                    AuthPermissions.UserGet,
+                                    AuthPermissions.UserSearch
                                 }
                            }
                        }
@@ -96,10 +96,10 @@ namespace Authorize.Application.UT.Permissions.Commands
                        {
                            {"Authorize.application", new List<string>()
                                 {
-                                    AuthPermisions.RoleGet,
-                                    AuthPermisions.RoleSearch,
-                                    AuthPermisions.UserGet,
-                                    AuthPermisions.UserSearch
+                                    AuthPermissions.RoleGet,
+                                    AuthPermissions.RoleSearch,
+                                    AuthPermissions.UserGet,
+                                    AuthPermissions.UserSearch
                                 }
                            }
                        }

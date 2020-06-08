@@ -1,4 +1,4 @@
-﻿namespace Authorize.Application.Features.Permisions.Common.Models
+﻿namespace Authorize.Application.Features.Common.Models
 {
     public class PermissionDto
     {

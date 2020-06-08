@@ -17,8 +17,8 @@ namespace Authorize.API.REST.Start
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<AuthorizeDbContext>();
-                var authPermisions = serviceScope.ServiceProvider.GetRequiredService<IAuthPermisions>();
-                AuthorizeDbContextSeed.SeedDefaultAsync(dbContext, authPermisions);
+                var authPermissions = serviceScope.ServiceProvider.GetRequiredService<IAuthPermissions>();
+                AuthorizeDbContextSeed.SeedDefaultAsync(dbContext, authPermissions);
                 await dbContext.SaveChangesAsync();
             }
         }

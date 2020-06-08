@@ -14,7 +14,7 @@ namespace Authorize.Application
             .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
             .AddMediatR(Assembly.GetExecutingAssembly())
             .AddSingleton<IAuthConfiguration, AuthConfiguration>()
-            .AddSingleton<IAuthPermisions, AuthPermisions>()
+            .AddSingleton<IAuthPermissions, AuthPermissions>()
             //.AddTransient(typeof(IRequestPreProcessor<>), typeof(RequestAuthPreProcessorBehavior<>))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             //.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));

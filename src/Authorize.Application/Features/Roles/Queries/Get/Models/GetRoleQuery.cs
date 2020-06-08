@@ -3,8 +3,8 @@ using MediatR;
 
 namespace Authorize.Application.Features.Roles.Queries.Get.Models
 {
-    [Authorize(AuthPermisions.RoleGet)]
-    public class GetRoleQuery : IRequest<RolePermisionsVM>
+    [Authorize(AuthPermissions.RoleGet)]
+    public class GetRoleQuery : IRequest<RolePermissionsVM>
     {
         public string Name { get; set; }
     }

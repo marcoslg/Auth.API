@@ -23,7 +23,7 @@ namespace Authorize.API.REST.Controllers.Applications.Queries
         }
 
         [HttpGet("{applicationName}")]
-        public async Task<ApplicationPermisionsVM> Get(string applicationName)
+        public async Task<ApplicationPermissionsVM> Get(string applicationName)
         {
             var response = await Query(new GetApplicationQuery(applicationName));
             return response;

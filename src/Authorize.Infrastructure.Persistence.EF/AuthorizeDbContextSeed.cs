@@ -11,19 +11,19 @@ namespace Authorize.Infrastructure.Persistence.EF
     public static class AuthorizeDbContextSeed
     {       
 
-        public static void SeedDefaultAsync(IAppDbContext context, IAuthPermisions authPermisions)
+        public static void SeedDefaultAsync(IAppDbContext context, IAuthPermissions authPermissions)
         {
-            var appAuth = SeedApplication(context, authPermisions);
+            var appAuth = SeedApplication(context, authPermissions);
             SeedUserDefault(context, appAuth);
             SeedApiRegister(context, appAuth);
         }
        
 
-        private static Authorize.Domain.Applications.Application SeedApplication(IAppDbContext context, IAuthPermisions authPermisions)
+        private static Authorize.Domain.Applications.Application SeedApplication(IAppDbContext context, IAuthPermissions authPermissions)
         {
             var app = new Authorize.Domain.Applications.Application("authorize.application")
             {
-                Permisions = authPermisions.Permissions.ToList()
+                Permissions = authPermissions.Permissions.ToList()
             };
             context.Applications.Add(app);
             return app;
@@ -37,7 +37,7 @@ namespace Authorize.Infrastructure.Persistence.EF
             defaultRole.Applications.Add(new ApplicationRole()
             {
                 Application = appAuth,
-                Permisions = appAuth.Permisions
+                Permissions = appAuth.Permissions
 
             });
             defaultRole.Users.Add(new Domain.Relations.UserRole()
@@ -59,9 +59,9 @@ namespace Authorize.Infrastructure.Persistence.EF
             defaultRole.Applications.Add(new ApplicationRole()
             {
                 Application = appAuth,
-                Permisions = new List<Permision>()
+                Permissions = new List<Permission>()
                 {
-                    Permision.For(AuthPermisions.ApplicationCreated)
+                    Permission.For(AuthPermissions.ApplicationCreated)
                 }
 
             });

@@ -20,7 +20,7 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Applications
             builder.Property(a => a.Version)
                 .HasConversion(converter);
 
-            builder.OwnsMany(a => a.Permisions);
+            builder.OwnsMany(a => a.Permissions);
         }
     }
 }

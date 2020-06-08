@@ -15,7 +15,7 @@ namespace Authorize.Infrastructure.Persistence.EF.Configurations.Roles
                 .WithMany()
                 .HasForeignKey("AppName");
 
-            builder.OwnsMany(a => a.Permisions).ToTable("RolePermisions");
+            builder.OwnsMany(a => a.Permissions).ToTable("RolePermissions");
         }
     }
 }

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 namespace Authorize.Application.Features.Roles.Queries.Get.Models
 {
-    public class RolePermisionsVM : RoleVM
+    public class RolePermissionsVM : RoleVM
     {
-        public RolePermisionsVM(string name, string description, bool isEnabled, IDictionary<string, IEnumerable<string>> permisions)
+        public RolePermissionsVM(string name, string description, bool isEnabled,
+            IDictionary<string, IEnumerable<string>> permissions)
             : base(name, description, isEnabled)
         {
-            Permisions = permisions ?? new Dictionary<string, IEnumerable<string>>();
+            Permissions = permissions ?? new Dictionary<string, IEnumerable<string>>();
         }
 
-        public IDictionary<string, IEnumerable<string>> Permisions { get; set; }
+        public IDictionary<string, IEnumerable<string>> Permissions { get; set; }
 
 
     }
