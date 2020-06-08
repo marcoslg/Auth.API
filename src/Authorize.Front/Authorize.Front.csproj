@@ -29,8 +29,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\auth\auth.guard.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Authorize.Application\Authorize.Application.csproj" />
     <ProjectReference Include="..\Authorize.Infrastructure.Persistence.EF\Authorize.Infrastructure.Persistence.EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\auth\auth.guard.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

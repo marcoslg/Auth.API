@@ -13,7 +13,7 @@ import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 export module Authorize {
-export const 'BASE_URL' = new InjectionToken<string>(''BASE_URL'');
+//export const 'BASE_URL' = new InjectionToken<string>(''BASE_URL'');
 
 @Injectable()
 export class WeatherForecastClient {
