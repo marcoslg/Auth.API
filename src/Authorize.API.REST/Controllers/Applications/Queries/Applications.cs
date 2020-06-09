@@ -1,5 +1,4 @@
 ﻿using Authorize.API.REST.Bases;
-using Authorize.API.REST.Modules.Secutiry.ApiKeys.Options;
 using Authorize.Application.Features.Applications.Queries.Get.Models;
 using Authorize.Application.Features.Applications.Queries.Models;
 using Authorize.Application.Features.Applications.Queries.SearchRole.Models;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 namespace Authorize.API.REST.Controllers.Applications.Queries
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = ApiKeyAuthenticationOptions.DefaultScheme)]
+    [Authorize()]
     [Route("api/queries/applications")]
     public class Applications : QueriesController
     {
