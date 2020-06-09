@@ -1,4 +1,4 @@
-﻿using Authorize.API.REST.Handlers;
+﻿using Authorize.API.REST.Modules.Secutiry.ApiKeys.Handlers;
 using Authorize.API.REST.Modules.Secutiry.ApiKeys.Options;
 using Microsoft.AspNetCore.Authentication;
 using System;

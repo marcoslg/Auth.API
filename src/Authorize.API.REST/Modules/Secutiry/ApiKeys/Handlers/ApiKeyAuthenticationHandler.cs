@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace Authorize.API.REST.Handlers
+namespace Authorize.API.REST.Modules.Secutiry.ApiKeys.Handlers
 {
     public class ApiKeyAuthenticationHandler : AuthenticationHandler<ApiKeyAuthenticationOptions>
     {

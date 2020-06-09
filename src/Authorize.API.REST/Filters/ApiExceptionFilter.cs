@@ -100,7 +100,8 @@ namespace Authorize.API.REST.Filters
             var exception = context.Exception as ForbiddenException;
 
             var details = new ProblemDetails()
-            {                
+            {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
                 Title = "forbidden",
                 Detail = exception.Message
             };
@@ -119,6 +120,7 @@ namespace Authorize.API.REST.Filters
 
             var details = new ProblemDetails()
             {
+                Type = "https://tools.ietf.org/html/rfc7231#section-6.5.8",
                 Title = "Conflict",
                 Detail = exception.Message
             };
@@ -136,7 +138,7 @@ namespace Authorize.API.REST.Filters
             var exception = context.Exception;
 
             var details = new ProblemDetails()
-            {
+            {                
                 Title = "Locked",
                 Detail = exception.Message
             };
