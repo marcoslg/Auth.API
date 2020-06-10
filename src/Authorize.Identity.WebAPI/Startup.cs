@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Authorize.Identity.WebAPI.Data;
-using Authorize.Identity.WebAPI.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Authorize.Identity.WebAPI.Data.Models;
 
 namespace Authorize.Identity.WebAPI
 {

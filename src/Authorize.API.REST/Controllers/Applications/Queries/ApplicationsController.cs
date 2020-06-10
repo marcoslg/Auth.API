@@ -13,9 +13,9 @@ namespace Authorize.API.REST.Controllers.Applications.Queries
     [ApiController]
     [Authorize()]
     [Route("api/queries/applications")]
-    public class Applications : QueriesController
+    public class ApplicationsController : QueriesController
     {
-        public Applications(IMediator mediator)
+        public ApplicationsController(IMediator mediator)
             : base(mediator)
         {
 

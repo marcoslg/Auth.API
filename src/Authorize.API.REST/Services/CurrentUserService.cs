@@ -8,7 +8,14 @@ namespace Authorize.API.REST.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? "admin";
+            UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier) ?? 
+                httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name)
+#if DEBUG
+                ??
+                "admin";
+#else
+            ;
+#endif
         }
 
         public string UserName { get; }

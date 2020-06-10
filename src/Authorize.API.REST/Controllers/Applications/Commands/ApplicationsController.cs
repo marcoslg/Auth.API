@@ -12,15 +12,15 @@ namespace Authorize.API.REST.Controllers.Applications.Commands
     [ApiController]
     [Authorize(AuthenticationSchemes = ApiKeyAuthenticationOptions.DefaultScheme)]
     [Route("api/commands/applications")]
-    public class Applications : CommandsController
+    public class ApplicationsController : CommandsController
     {
-        public Applications(IMediator mediator)
+        public ApplicationsController(IMediator mediator)
             : base(mediator)
         {
 
         }
 
-        [HttpPost("Registry")]
+        [HttpPost]
         public async Task Registry(CreateApplicationRequest commandRequest)
         {
             var command = commandRequest.ToMap();

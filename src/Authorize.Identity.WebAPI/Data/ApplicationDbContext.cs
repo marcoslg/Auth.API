@@ -1,4 +1,4 @@
-﻿using Authorize.Identity.WebAPI.Models;
+﻿using Authorize.Identity.WebAPI.Data.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
