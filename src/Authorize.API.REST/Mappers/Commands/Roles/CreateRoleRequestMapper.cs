@@ -1,4 +1,5 @@
 ﻿using Authorize.API.REST.Models.Commands.Roles;
+using Authorize.API.REST.Models.Commands.Users;
 using Authorize.Application.Features.Roles.Commands.Create;
 
 namespace Authorize.API.REST.Mappers.Commands.Applications
