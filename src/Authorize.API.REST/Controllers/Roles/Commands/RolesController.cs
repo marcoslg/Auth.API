@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace Authorize.API.REST.Controllers.Roles.Commands
 {
-    [Route("api/commands/[controller]")]
+    
     [ApiController]    
     [Authorize]
+    [Route("api/commands/roles")]
     public class RolesController : CommandsController
     {
         public RolesController(IMediator mediator)

@@ -2,7 +2,9 @@
 using Authorize.Application.Features.Applications.Queries.Get.Models;
 using Authorize.Application.Features.Applications.Queries.Models;
 using Authorize.Application.Features.Applications.Queries.SearchRole.Models;
+using Authorize.Application.Features.Roles.Queries.Get.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -11,8 +13,8 @@ using System.Threading.Tasks;
 namespace Authorize.API.REST.Controllers.Applications.Queries
 {
     [ApiController]
-    [Authorize()]
     [Route("api/queries/applications")]
+    [Authorize]    
     public class ApplicationsController : QueriesController
     {
         public ApplicationsController(IMediator mediator)
@@ -22,9 +24,9 @@ namespace Authorize.API.REST.Controllers.Applications.Queries
         }
 
         [HttpGet("{applicationName}")]
-        public async Task<ApplicationPermissionsVM> Get(string applicationName)
+        public async Task<RolePermissionsVM> Get(string applicationName)
         {
-            var response = await Query(new GetApplicationQuery(applicationName));
+            var response = await Query(new GetRoleQuery(applicationName));
             return response;
         }
         [HttpGet("Search/{applicationName}")]

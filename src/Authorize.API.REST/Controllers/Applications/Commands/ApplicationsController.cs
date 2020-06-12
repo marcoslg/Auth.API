@@ -11,7 +11,7 @@ namespace Authorize.API.REST.Controllers.Applications.Commands
 {
     [ApiController]
     [Authorize(AuthenticationSchemes = ApiKeyAuthenticationOptions.DefaultScheme)]
-    [Route("api/commands/applications")]
+    [Route("api/commands/Applications")]
     public class ApplicationsController : CommandsController
     {
         public ApplicationsController(IMediator mediator)

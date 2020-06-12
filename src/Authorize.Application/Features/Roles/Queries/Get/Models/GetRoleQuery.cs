@@ -7,5 +7,14 @@ namespace Authorize.Application.Features.Roles.Queries.Get.Models
     public class GetRoleQuery : IRequest<RolePermissionsVM>
     {
         public string Name { get; set; }
+
+        public GetRoleQuery()
+        {
+
+        }
+        public GetRoleQuery(string roleName)
+        {
+            Name = roleName;
+        }
     }
 }
