@@ -4,16 +4,35 @@ using System.Collections.Generic;
 
 namespace Authorize.Application.Features.Roles.Commands.Create
 {
-    [Authorize(AuthPermisions.RoleCreated)]
-    public class CreateRoleCommand : IRequest<string>
+    [Authorize(AuthPermissions.RoleCreated)]
+    public class CreateRoleCommand : IRequest
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public Dictionary<string, IEnumerable<string>> Permisions { get; set; }
+        private Dictionary<string, IEnumerable<string>> _permissions;
+        public Dictionary<string, IEnumerable<string>> Permissions 
+        {
+            get => _permissions;
+            set
+            {
+                if (value != null)
+                {
+                    _permissions = value;
+                }
+
+            }
+        }
 
         public CreateRoleCommand()
         {
-            Permisions = new Dictionary<string, IEnumerable<string>>();
+            Permissions = new Dictionary<string, IEnumerable<string>>();
+        }
+
+        public CreateRoleCommand(string name, string description, Dictionary<string, IEnumerable<string>> permissions)
+        {
+            Name = name;
+            Description = description;
+            Permissions = permissions;
         }
     }
 }

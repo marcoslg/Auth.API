@@ -14,12 +14,14 @@ namespace Authorize.Domain.Applications
         public string Description { get; set; }
 
         public Version Version { get; set; }
-        public ICollection<Permision> Permisions { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
 
+        public Application()
+        { }
         public Application(string name)
         {
             Name = name;
-            Permisions = new List<Permision>();
+            Permissions = new List<Permission>();
         }
     }
 }

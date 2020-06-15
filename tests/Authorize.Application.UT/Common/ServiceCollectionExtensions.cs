@@ -1,5 +1,6 @@
 ﻿using Authorize.Application.Contracts;
 using Authorize.Domain.Applications;
+using Authorize.Domain.Relations;
 using Authorize.Domain.Roles;
 using Authorize.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -37,12 +38,12 @@ namespace Authorize.Application.UT.Common
             })
             .AddDBSetMocks<Authorize.Domain.Applications.Application>(sp =>
             {
-                var authPermisions = sp.GetService<IAuthPermisions>();
+                var authPermissions = sp.GetService<IAuthPermissions>();
                 var data = new List<Authorize.Domain.Applications.Application>
                 {
                     new Authorize.Domain.Applications.Application(Constants.App)
                     {
-                        Permisions = authPermisions.Permissions.ToList()
+                        Permissions = authPermissions.Permissions.ToList()
                     }
                 };
                 return data;
@@ -61,28 +62,34 @@ namespace Authorize.Application.UT.Common
             .AddDBSetMocks<Role>(sp =>
             {
                 var applications = sp.GetService<DbSet<Authorize.Domain.Applications.Application>>();
-                var authPermisions = sp.GetService<IAuthPermisions>();
-                var users = new List<User>()
+                var authPermissions = sp.GetService<IAuthPermissions>();
+                var users = new List<UserRole>
                 {
-                    new User(Constants.UserAdmin)
+                    new UserRole()
+                    {
+                        User =new User(Constants.UserAdmin)
+                    }
                 };
                 var data = new List<Role>()
                 {
-                    new Role(Constants.RoleAdmin,"admin desc", applications.Select(a => new ApplicationRole(){Application = a,Permisions=authPermisions.Permissions.ToList() }).ToList())
+                    new Role(Constants.RoleAdmin,"admin desc", applications.Select(a => new ApplicationRole(){Application = a,Permissions=authPermissions.Permissions.ToList() }).ToList())
                     {
                         Users = users
                     },
-                    new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){ Application =a,Permisions= new List<Permision>()
+                    new Role(Constants.RoleGuest,"guest desc", applications.Select(a => new ApplicationRole(){ Application =a,Permissions= new List<Permission>()
                     {
-                        Permision.For(AuthPermisions.RoleGet),
-                        Permision.For(AuthPermisions.RoleSearch),
-                        Permision.For(AuthPermisions.UserGet),
-                        Permision.For(AuthPermisions.UserSearch)
+                        Permission.For(AuthPermissions.RoleGet),
+                        Permission.For(AuthPermissions.RoleSearch),
+                        Permission.For(AuthPermissions.UserGet),
+                        Permission.For(AuthPermissions.UserSearch)
                     } }).ToList())
                     {
-                        Users = new List<User>
+                        Users = new List<UserRole>
                         {
-                            new User(Constants.UserGuest)
+                            new UserRole()
+                            {
+                                User = new User(Constants.UserGuest)
+                            }
                         }
                     }
                 };

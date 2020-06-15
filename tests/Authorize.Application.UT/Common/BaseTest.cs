@@ -17,7 +17,7 @@ namespace Authorize.Application.UT.Common
             //var services = factory.CreateBuilder(new ServiceCollection());
             var services = new ServiceCollection();
             services.AddMocks()
-                .AddApplication();
+                .AddAuthorizeApplication();
 
             ServiceProvider = services.BuildServiceProvider();
             ServiceScopeProvider = ServiceProvider.GetService<IServiceScopeFactory>();

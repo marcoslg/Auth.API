@@ -22,13 +22,12 @@ namespace Authorize.Application.UT.Users.Commans
         public async Task When_CreateUser_InputInValid_ThrowValidationException(string userName)
         {
             var mediator = ServiceProvider.GetService<IMediator>();
-            Func<Task<string>> act = async () =>
+            Func<Task> act = async () =>
             {                
-                var response = await mediator.Send(new CreateUserCommand()
+                await mediator.Send(new CreateUserCommand()
                 {
                     UserName = userName
                 });
-                return response;
             };
             act.Should().Throw<ValidationException>();
 
@@ -62,13 +61,13 @@ namespace Authorize.Application.UT.Users.Commans
 
             var mediator = sp.GetService<IMediator>();
             //Act
-            Func<Task<string>> act = async () =>
+            Func<Task> act = async () =>
             {                
-                var response = await mediator.Send(new CreateUserCommand()
+                 await mediator.Send(new CreateUserCommand()
                 {
                     UserName = userName
                 });
-                return response;
+               
             };
             //Assert
             act.Should().Throw<ExistsException>();

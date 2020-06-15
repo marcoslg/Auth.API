@@ -9,12 +9,12 @@ namespace Authorize.Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static IServiceCollection AddAuthorizeApplication(this IServiceCollection services)
         => services
             .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
             .AddMediatR(Assembly.GetExecutingAssembly())
             .AddSingleton<IAuthConfiguration, AuthConfiguration>()
-            .AddSingleton<IAuthPermisions, AuthPermisions>()
+            .AddSingleton<IAuthPermissions, AuthPermissions>()
             //.AddTransient(typeof(IRequestPreProcessor<>), typeof(RequestAuthPreProcessorBehavior<>))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             //.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>));

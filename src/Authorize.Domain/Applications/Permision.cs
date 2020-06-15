@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Authorize.Domain.Applications
 {
-    public class Permision : ValueObject
+    public class Permission : ValueObject
     {
         public string _name;
         public string Name
@@ -13,18 +13,18 @@ namespace Authorize.Domain.Applications
         }
         public string Description { get; private set; }
 
-        private Permision(string name) {
+        private Permission(string name) {
             Name = name;
         }
-        private Permision(string name, string description) 
+        private Permission(string name, string description) 
         {
             Name = name;
             Description = description;
         }
-        public static Permision For(string name)
-        => new Permision(name);
-        public static Permision For(string name, string description)
-        => new Permision(name, description);
+        public static Permission For(string name)
+        => new Permission(name);
+        public static Permission For(string name, string description)
+        => new Permission(name, description);
 
         public override int GetHashCode()
         {

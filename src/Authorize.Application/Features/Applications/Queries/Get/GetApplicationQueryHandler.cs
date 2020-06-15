@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Authorize.Application.Features.Applications.Queries.Get
 {
-    public class GetApplicationQueryHandler : IRequestHandler<GetApplicationQuery, ApplicationPermisionsVM>
+    public class GetApplicationQueryHandler : IRequestHandler<GetApplicationQuery, ApplicationPermissionsVM>
     {
         private readonly IAppDbContext _context;
         public GetApplicationQueryHandler(IAppDbContext context)
         {
             _context = context;
         }
-        public async Task<ApplicationPermisionsVM> Handle(GetApplicationQuery request, CancellationToken cancellationToken)
+        public async Task<ApplicationPermissionsVM> Handle(GetApplicationQuery request, CancellationToken cancellationToken)
         {
             var normalizedName = request.Name;
             cancellationToken.ThrowIfCancellationRequested();
             var application = await _context.Applications.AsNoTracking()
-                .Include(ap => ap.Permisions)
+                .Include(ap => ap.Permissions)
                 .SingleOrDefaultAsync(ap => ap.Name == normalizedName, cancellationToken);
             if (application == null)
             {

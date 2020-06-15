@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Authorize.Application.Features.Roles.Commands.Disabled
 {
-    [Authorize(AuthPermisions.RoleDisabled)]
+    [Authorize(AuthPermissions.RoleDisabled)]
     public class DisabledRoleCommand : IRequest
     {
         public string Name { get; set; }

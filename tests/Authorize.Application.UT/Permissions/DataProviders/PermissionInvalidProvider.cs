@@ -1,4 +1,4 @@
-﻿using Authorize.Application.Features.Permisions.Commands.AddPermissionInRole;
+﻿using Authorize.Application.Features.Permissions.Commands.AddPermissionInRole;
 using System.Collections.Generic;
 using Xunit;
 
@@ -26,10 +26,10 @@ namespace Authorize.Application.UT.Permissions.DataProvaiders
                    {"Api1", new List<string>(){"read" } },
                    {"Authorize.application", new List<string>()
                         {
-                            AuthPermisions.RoleGet,
-                            AuthPermisions.RoleSearch,
-                            AuthPermisions.UserGet,
-                            AuthPermisions.UserSearch
+                            AuthPermissions.RoleGet,
+                            AuthPermissions.RoleSearch,
+                            AuthPermissions.UserGet,
+                            AuthPermissions.UserSearch
                         }
                    }
                }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Authorize.Application.Features.Users.Commands.Create
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand>
     {
         private readonly IAppDbContext _context;
         public CreateUserCommandHandler(IAppDbContext context)
         {
             _context = context;
         }
-        public async Task<string> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var entity = await _context.Users.AsNoTracking()
                 .FirstOrDefaultAsync(r => r.UserName == command.UserName, cancellationToken);
@@ -27,7 +27,7 @@ namespace Authorize.Application.Features.Users.Commands.Create
             _context.Users.Add(user);
             cancellationToken.ThrowIfCancellationRequested();
             await _context.SaveChangesAsync(cancellationToken);
-            return user.UserName;
+            return Unit.Value;
         }
     }
 }

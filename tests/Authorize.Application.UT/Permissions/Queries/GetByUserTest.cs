@@ -13,8 +13,8 @@ using Authorize.Application.UT.Permissions.DataProvaiders;
 using Microsoft.EntityFrameworkCore;
 using Authorize.Domain.Users;
 using System.Linq;
-using Authorize.Application.Features.Permisions.Common.Models;
-using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
+using Authorize.Application.Features.Common.Models;
+using Authorize.Application.Features.Permissions.Queries.GetByUser.Models;
 
 namespace Authorize.Application.UT.Permissions.Queries
 {

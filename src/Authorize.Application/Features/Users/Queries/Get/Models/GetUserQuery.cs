@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Authorize.Application.Features.Users.Queries.Get.Models
 {
-    [Authorize(AuthPermisions.UserGet)]
+    [Authorize(AuthPermissions.UserGet)]
     public class GetUserQuery : IRequest<UserWithRolesVM>
     {
         public string UserName { get; set; }

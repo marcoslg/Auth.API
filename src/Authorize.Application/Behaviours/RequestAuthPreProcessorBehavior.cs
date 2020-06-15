@@ -1,7 +1,7 @@
 ﻿using Authorize.Application.Attributtes;
 using Authorize.Application.Contracts;
 using Authorize.Application.Exceptions;
-using Authorize.Application.Features.Permisions.Queries.GetByUser.Models;
+using Authorize.Application.Features.Permissions.Queries.GetByUser.Models;
 using MediatR;
 using MediatR.Pipeline;
 using System.Linq;
@@ -37,7 +37,7 @@ namespace Authorize.Application.Behaviours
             var response = await _mediator.Send(new GetPermissionsQuery(username, appName));
             if (!response.Any(r=> authorizeAttrs.Any(a=> a.Permission == r.Name)))
             {
-                throw new ForbiddenException(nameof(TRequest));
+                throw new ForbiddenException(typeof(TRequest).Name);
             }
         }
     }

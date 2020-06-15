@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Authorize.Application
 {
-    public interface IAuthPermisions
+    public interface IAuthPermissions
     {
-        IEnumerable<Permision> Permissions { get; }
+        IEnumerable<Permission> Permissions { get; }
     }
-    public class AuthPermisions : IAuthPermisions
+    public class AuthPermissions : IAuthPermissions
     {
         #region roles
         public const string RoleCreated = "role.created";
@@ -34,34 +34,34 @@ namespace Authorize.Application
         #endregion applications
 
 
-        public IEnumerable<Permision> Permissions { get; private set; }
+        public IEnumerable<Permission> Permissions { get; private set; }
 
-        public AuthPermisions()
+        public AuthPermissions()
         {
-            Permissions = new List<Permision>()
+            Permissions = new List<Permission>()
             {
                 #region roles
-                Permision.For(RoleCreated),
-                Permision.For(RoleDisabled),
-                Permision.For(RoleEnabled),
-                Permision.For(RoleGet),
-                Permision.For(RoleSearch),
+                Permission.For(RoleCreated),
+                Permission.For(RoleDisabled),
+                Permission.For(RoleEnabled),
+                Permission.For(RoleGet),
+                Permission.For(RoleSearch),
                 #endregion roles
 
                 #region users
-                Permision.For(UserCreated),
-                Permision.For(UserDisabled),
-                Permision.For(UserEnabled),
-                Permision.For(UserGet),
-                Permision.For(UserSearch),
+                Permission.For(UserCreated),
+                Permission.For(UserDisabled),
+                Permission.For(UserEnabled),
+                Permission.For(UserGet),
+                Permission.For(UserSearch),
                 #endregion users
 
                 #region applications
-                Permision.For(ApplicationCreated),
-                Permision.For(ApplicationDisabled),
-                Permision.For(ApplicationEnabled),
-                Permision.For(ApplicationGet),
-                Permision.For(ApplicationSearch),
+                Permission.For(ApplicationCreated),
+                Permission.For(ApplicationDisabled),
+                Permission.For(ApplicationEnabled),
+                Permission.For(ApplicationGet),
+                Permission.For(ApplicationSearch),
                 #endregion applications
             };
         }

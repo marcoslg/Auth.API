@@ -3,9 +3,18 @@ using MediatR;
 
 namespace Authorize.Application.Features.Applications.Queries.Get.Models
 {
-    [Authorize(AuthPermisions.ApplicationGet)]
-    public class GetApplicationQuery : IRequest<ApplicationPermisionsVM>
+    [Authorize(AuthPermissions.ApplicationGet)]
+    public class GetApplicationQuery : IRequest<ApplicationPermissionsVM>
     {
         public string Name { get; set; }
+
+        public GetApplicationQuery()
+        {
+
+        }
+        public GetApplicationQuery(string applicationName)
+        {
+            Name = applicationName;
+        }
     }
 }

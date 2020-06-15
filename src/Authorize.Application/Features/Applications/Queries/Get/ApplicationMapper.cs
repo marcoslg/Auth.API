@@ -6,14 +6,14 @@ namespace Authorize.Application.Features.Applications.Queries.Get
 {
     internal static class ApplicationMapper
     {
-        public static ApplicationPermisionsVM ToMap(this Domain.Applications.Application application)
+        public static ApplicationPermissionsVM ToMap(this Domain.Applications.Application application)
         {
-            var permisions = new Dictionary<string, IEnumerable<string>>();
-            permisions.Add(application.Name, application.Permisions.Select(p => p.Name));
-            return new ApplicationPermisionsVM(application.Name, application.Description, application.IsEnabled, permisions);
+            var permissions = new Dictionary<string, IEnumerable<string>>();
+            permissions.Add(application.Name, application.Permissions.Select(p => p.Name));
+            return new ApplicationPermissionsVM(application.Name, application.Description, application.IsEnabled, permissions);
         }
 
-        public static IQueryable<ApplicationPermisionsVM> ToMap(this IQueryable<Domain.Applications.Application> applicationQuery)
+        public static IQueryable<ApplicationPermissionsVM> ToMap(this IQueryable<Domain.Applications.Application> applicationQuery)
             => applicationQuery.Select(x => x.ToMap());
     }
 }
