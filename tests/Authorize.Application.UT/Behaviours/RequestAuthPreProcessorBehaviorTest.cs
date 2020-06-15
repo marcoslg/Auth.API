@@ -23,13 +23,13 @@ namespace Authorize.Application.UT.Behaviours
 
             //act
             var mediator = ServiceProvider.GetService<IMediator>();
-            Func<Task<string>> act = async () =>
+            Func<Task> act = async () =>
             {
-                var response = await mediator.Send(new CreateRoleCommand()
+                await mediator.Send(new CreateRoleCommand()
                 {
                     Name = "forbidden"
                 });
-                return response;
+               
             };
             //assert
             act.Should().Throw<ForbiddenException>();

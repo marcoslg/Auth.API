@@ -22,13 +22,12 @@ namespace Authorize.Application.UT.Roles.Commands
         public async Task When_CreateRole_InputInValid_ThrowValidationException(string roleName)
         {
             var mediator = ServiceProvider.GetService<IMediator>();
-            Func<Task<string>> act = async () =>
+            Func<Task> act = async () =>
             {
-                var response = await mediator.Send(new CreateRoleCommand()
+                await mediator.Send(new CreateRoleCommand()
                 {
                     Name = roleName
                 });
-                return response;
             };
             act.Should().Throw<ValidationException>();
 
@@ -62,13 +61,12 @@ namespace Authorize.Application.UT.Roles.Commands
 
             var mediator = sp.GetService<IMediator>();
             //Act
-            Func<Task<string>> act = async () =>
+            Func<Task> act = async () =>
             {
-                var response = await mediator.Send(new CreateRoleCommand()
+                await mediator.Send(new CreateRoleCommand()
                 {
                     Name = roleName
                 });
-                return response;
             };
             //Assert
             act.Should().Throw<ExistsException>();
